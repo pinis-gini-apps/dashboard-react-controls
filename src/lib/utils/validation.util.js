@@ -178,6 +178,13 @@ const generateRule = {
       pattern: new RegExp('^[' + convertToPattern(chars) + ']+$')
     }
   },
+  validCharactersWithPrefix: (chars) => {
+    return {
+      name: 'validCharactersWithPrefix',
+      label: ValidationConstants.VALID_CHARACTERS + ': ' + convertToLabel(chars),
+      pattern: new RegExp('^([' + convertToPattern(chars) + ']+\/)?[' + convertToPattern(chars) + ']+$')
+    }
+  },
   noConsecutiveCharacters: (chars) => {
     const convertedPattern = chars
       .split(' ')
@@ -330,6 +337,13 @@ const validationRules = {
       generateRule.validCharacters('a-z A-Z 0-9 - _ .'),
       generateRule.beginNotWith('.'),
       generateRule.length({ max: 253 })
+    ]
+  },
+  job: {
+    label: [
+      generateRule.validCharactersWithPrefix('a-z A-Z 0-9 - _ .'),
+      generateRule.beginEndWith('a-z A-Z 0-9'),
+      generateRule.length({ max: 56 })
     ]
   }
 }
