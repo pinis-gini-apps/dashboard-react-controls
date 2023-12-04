@@ -186,7 +186,9 @@ const FormSelect = ({
   }, [clickHandler, handleScroll, isOpen])
 
   const scrollOptionToView = useCallback(() => {
-    const selectedOptionEl = optionsListRef.current.querySelector(`[data-custom-id="${input.value}"]`)
+    const selectedOptionEl = optionsListRef.current.querySelector(
+      `[data-custom-id="${input.value}"]`
+    )
 
     if (!selectedOptionEl) return
 
@@ -261,14 +263,14 @@ const FormSelect = ({
           hidden={!tooltip}
         >
           <div
-            data-testid="select"
+            data-testid={name ? `${name}-form-field-select` : 'form-field-select'}
             ref={selectRef}
             className={`form-field-select ${className}`}
             onClick={toggleOpen}
           >
             {label && (
               <div className={selectLabelClassName}>
-                <label data-testid="select-label">
+                <label data-testid={name ? `${name}-form-select-label` : 'form-select-label'}>
                   {label}
                   {meta.error && <span className="form-field__label-mandatory"> *</span>}
                 </label>

@@ -263,10 +263,10 @@ const FormInput = React.forwardRef(
       <Field validate={async ? validateFieldAsync : validateField} name={name} parse={parseField}>
         {({ input }) => {
           return (
-            <div ref={ref} className={formFieldClassNames}>
+            <div ref={ref} className={formFieldClassNames} data-testid={name ? `${name}-form-field-input` : 'form-field-input'}>
               {label && (
                 <div className={labelClassNames}>
-                  <label data-testid="label" htmlFor={input.name}>
+                  <label data-testid={name ? `${name}-form-label` : 'form-label'} htmlFor={input.name}>
                     {label}
                     {(required || validationRules.find((rule) => rule.name === 'required')) && (
                       <span className="form-field__label-mandatory"> *</span>
@@ -291,7 +291,7 @@ const FormInput = React.forwardRef(
               <div className={inputWrapperClassNames}>
                 <div className="form-field__control">
                   <input
-                    data-testid="input"
+                    data-testid={name ? `${name}-form-input` : 'form-input'}
                     id={input.name}
                     ref={inputRef}
                     required={isInvalid || required}

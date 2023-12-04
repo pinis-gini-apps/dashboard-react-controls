@@ -321,7 +321,7 @@ const FormCombobox = ({
   return (
     <Field name={name} validate={validateField}>
       {({ input, meta }) => (
-        <div className={comboboxClassNames} ref={comboboxRef}>
+        <div className={comboboxClassNames} ref={comboboxRef} data-testid={name ? `${name}-form-combobox` : 'form-combobox'}>
           {label && (
             <div className={labelClassNames}>
               <label data-testid="label" htmlFor={input.name}>
@@ -379,6 +379,7 @@ const FormCombobox = ({
             </div>
             <input
               className={inputClassNames}
+              data-testid={name ? `${name}-form-combobox-input` : 'form-combobox-input'}
               id={input.name}
               onChange={handleInputChange}
               onFocus={inputOnFocus}
@@ -404,6 +405,7 @@ const FormCombobox = ({
                   {!hideSearchInput && (
                     <div className="form-field-combobox__search-wrapper">
                       <input
+                        data-testid={name ? `${name}-form-combobox-search` : 'form-combobox-search'}
                         className="form-field-combobox__search form-field__control"
                         onChange={suggestionListSearchChange}
                         onFocus={() => setSearchIsFocused(true)}

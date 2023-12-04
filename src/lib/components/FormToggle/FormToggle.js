@@ -31,10 +31,10 @@ const FormToggle = ({ className, density, label, name, onChange, ...inputProps }
     <Field name={name} value={inputProps.value} type="checkbox">
       {({ input }) => {
         return (
-          <label className="form-field-toggle">
+          <label className="form-field-toggle" data-testid={name ? `${name}-form-field-toggle` : 'form-field-toggle'}>
             {label && <div className="form-field__label">{label}</div>}
             <input
-              data-testid="toggle"
+              data-testid={name ? `${name}-form-toggle` : 'form-toggle'}
               id={name}
               {...{ ...input, ...inputProps }}
               onChange={(event) => {

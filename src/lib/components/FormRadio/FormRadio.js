@@ -31,11 +31,11 @@ const FormRadio = ({ className, name, label, readOnly, ...inputProps }) => {
   return (
     <Field name={name} value={inputProps.value} type="radio">
       {({ input }) => (
-        <div className={formFieldClassNames}>
+        <div className={formFieldClassNames} data-testid={name ? `${name}-${inputProps.value}-form-radio` : 'form-field-radio'}>
           <input
             className={classNames(input.checked ? 'checked' : 'unchecked')}
             type="radio"
-            data-testid={`radio-${inputProps.value}`}
+            data-testid={name ? `${name}-${inputProps.value}-radio` : 'form-radio'}
             {...{
               ...input,
               ...inputProps

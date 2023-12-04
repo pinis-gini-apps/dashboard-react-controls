@@ -42,12 +42,12 @@ const FormCheckBox = ({
     <Field name={name} value={inputProps.value} type="checkbox">
       {({ input }) => {
         return (
-          <div className={formFieldClassNames}>
+          <div className={formFieldClassNames} data-testid="form-field-checkbox">
             <input
               ref={inputRef}
               className={classNames(input.checked ? 'checked' : 'unchecked')}
               type="checkbox"
-              data-testid="checkbox"
+              data-testid={name ? `${name}-form-checkbox` : 'form-checkbox'}
               id={inputProps.value ?? name}
               {...{ ...input, ...inputProps }}
               value={String(input.checked)}
