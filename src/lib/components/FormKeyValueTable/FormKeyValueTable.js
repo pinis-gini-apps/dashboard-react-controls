@@ -25,6 +25,7 @@ import { FormActionButton, FormRowActions } from '../../elements'
 import { useFormTable } from '../../hooks'
 
 const FormKeyValueTable = ({
+  actionButtonId,
   addNewItemLabel,
   className,
   defaultKey,
@@ -152,6 +153,7 @@ const FormKeyValueTable = ({
               disabled={disabled}
               hidden={editingItem?.ui?.isNew}
               fields={fields}
+              id={actionButtonId}
               label={addNewItemLabel}
               onClick={(...addRowArgs) =>
                 addNewRow(...addRowArgs, {
@@ -171,6 +173,7 @@ const FormKeyValueTable = ({
 }
 
 FormKeyValueTable.defaultProps = {
+  actionButtonId: '',
   addNewItemLabel: 'Add new item',
   className: '',
   defaultKey: '',
@@ -186,6 +189,7 @@ FormKeyValueTable.defaultProps = {
 }
 
 FormKeyValueTable.propTypes = {
+  actionButtonId: PropTypes.string,
   addNewItemLabel: PropTypes.string,
   className: PropTypes.string,
   defaultKey: PropTypes.string,
