@@ -35,10 +35,10 @@ const Button = forwardRef(
         {icon}
         {tooltip ? (
           <Tooltip template={<TextTooltipTemplate text={tooltip} />}>
-            <span>{label}</span>
+            <div>{label}</div>
           </Tooltip>
         ) : (
-          <span>{label}</span>
+          <div>{label}</div>
         )}
       </button>
     )
