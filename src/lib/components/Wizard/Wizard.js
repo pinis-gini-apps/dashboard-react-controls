@@ -149,7 +149,7 @@ const Wizard = ({
     const allStepsAreEnabled = visibleSteps.every((step) => !step.disabled)
 
     if (getActions) {
-      const actions = getActions({ allStepsAreEnabled, goToFirstInvalidStep })
+      const actions = getActions({ allStepsAreEnabled, jumpToStep, goToFirstInvalidStep })
       const mainActions = actions.map((action) => <Button {...action} />)
       actionsList.push(...mainActions)
     }

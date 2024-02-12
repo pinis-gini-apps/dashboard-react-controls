@@ -29,10 +29,9 @@ const FormActionButton = React.forwardRef(
         {!hidden && (
           <div className="form-table__row form-table__action-row no-hover">
             <button
-              data-testid={`${fieldsPath}-add-btn`}
+              data-testid={id ? id : `${fieldsPath}-add-btn`}
               onClick={(event) => onClick(event, fields, fieldsPath)}
               disabled={disabled}
-              data-testid={id}
             >
               <Plus />
               {label}
