@@ -84,7 +84,7 @@ const Wizard = ({
             : null
 
         return (
-          <div key={idx} className={!stepIsActive ? 'wizard-form__hidden-content-item' : ''}>
+          <div key={idx} className={!stepIsActive ? 'wizard-form__hidden-content-item' : 'wizard-form__visible-content-item'}>
             {newChild}
           </div>
         )
