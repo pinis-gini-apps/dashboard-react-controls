@@ -97,8 +97,8 @@ const NewChipForm = React.forwardRef(
     )
 
     const closeButtonClass = classnames(
-      'edit-chip__icon-close',
-      (editConfig.chipIndex === chipIndex || !isEditable) && 'edit-chip__icon-close_hidden'
+      'item-icon-close',
+      (editConfig.chipIndex === chipIndex || !isEditable) && 'item-icon-close_hidden'
     )
 
     useLayoutEffect(() => {
