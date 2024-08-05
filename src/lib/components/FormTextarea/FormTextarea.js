@@ -30,19 +30,20 @@ import './formTextarea.scss'
 const FormTextarea = React.forwardRef(
   (
     {
-      className,
-      disabled,
-      focused,
-      iconClass,
-      invalidText,
-      label,
-      maxLength,
+      className = '',
+      disabled = false,
+      focused = false,
+      iconClass = '',
+      invalidText = 'This field is invalid',
+      label = '',
+      maxLength = null,
       name,
-      onBlur,
-      onChange,
-      required,
+      onBlur = () => {},
+      onChange = () => {},
+      required = false,
+      rows = 3,
       textAreaIcon,
-      tip,
+      tip = '',
       withoutBorder,
       ...textareaProps
     },
@@ -81,21 +82,21 @@ const FormTextarea = React.forwardRef(
       )
     }, [meta.invalid, meta.modified, meta.submitFailed, meta.touched, meta.validating])
 
-    const handleInputBlur = (event) => {
+    const handleInputBlur = event => {
       input.onBlur(event)
       onBlur && onBlur(event)
     }
 
-    const handleInputChange = (event) => {
+    const handleInputChange = event => {
       input.onChange(event)
       onChange && onChange(event.target.value)
     }
 
-    const handleInputFocus = (event) => {
+    const handleInputFocus = event => {
       input.onFocus(event)
     }
 
-    const validateField = (value) => {
+    const validateField = value => {
       const valueToValidate = value ?? ''
       let validationError = null
 
@@ -130,6 +131,7 @@ const FormTextarea = React.forwardRef(
                   required={isInvalid || required}
                   {...{
                     disabled,
+                    rows,
                     ...textareaProps,
                     ...input
                   }}
@@ -169,23 +171,6 @@ const FormTextarea = React.forwardRef(
   }
 )
 
-FormTextarea.defaultProps = {
-  className: '',
-  disabled: false,
-  focused: false,
-  iconClass: '',
-  textAreaIcon: null,
-  invalidText: 'This field is invalid',
-  label: '',
-  maxLength: null,
-  onBlur: () => {},
-  onChange: () => {},
-  placeholder: '',
-  required: false,
-  rows: 3,
-  tip: ''
-}
-
 FormTextarea.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -198,7 +183,6 @@ FormTextarea.propTypes = {
   name: PropTypes.string.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  placeholder: PropTypes.string,
   required: PropTypes.bool,
   tip: PropTypes.string
 }
