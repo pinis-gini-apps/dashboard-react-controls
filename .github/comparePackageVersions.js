@@ -27,10 +27,11 @@ console.log(currentBranch)
 const getVersionFromBranch = branch => {
   try {
     console.log('----git branch -a-----')
-    execSync('git branch -a')
+    const branchList = execSync('git branch -a')
+    console.log(branchList)
     console.log('----git branch-----')
-    execSync('git branch')
-
+    const branchList2 = execSync('git branch')
+    console.log(branchList2)
     execSync(`git checkout ${branch} -- ${packageJsonPath}`)
     const data = fs.readFileSync(packageJsonPath, 'utf8')
     const packageJson = JSON.parse(data)
