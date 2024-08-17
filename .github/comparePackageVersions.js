@@ -1,21 +1,11 @@
 const fs = require('fs')
-const path = require('path')
 const { execSync } = require('child_process')
 
-const packageJsonPath = 'package.json'
-
 const targetBranch = process.argv[2]
-console.log('------process.env.TARGET_BRANCH--------')
-console.log(targetBranch)
-console.log('------process.env.TARGET_BRANCH--------')
+
 function getCurrentBranch() {
   try {
-    const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-    console.log('----current branch----')
-    console.log(branch)
-    console.log('----current branch----')
-
-    return branch
+    return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
   } catch (err) {
     console.error('Error getting current branch:', err)
     process.exit(1)
@@ -23,47 +13,31 @@ function getCurrentBranch() {
 }
 
 const currentBranch = getCurrentBranch()
-console.log(currentBranch)
 
-console.log('----git branch-----')
-const branchList = execSync('git branch', { encoding: 'utf-8' })
-console.log(branchList)
 const getVersionFromBranch = branch => {
   try {
-    console.log('----git branch -a-----')
-    const branchList = execSync('git branch', { encoding: 'utf-8' })
-    console.log(branchList)
-    console.log('----git branch-----')
-    const branchList2 = execSync('git branch', { encoding: 'utf-8' })
-    console.log(branchList2)
-    execSync(`git checkout ${branch} -- ${packageJsonPath}`)
-    const data = fs.readFileSync(packageJsonPath, 'utf8')
-    const packageJson = JSON.parse(data)
-    return packageJson.version
+    execSync(`git checkout ${branch} -- 'package.json'`)
+    const packageJson = fs.readFileSync('package.json', 'utf8')
+    const packageJsonParsed = JSON.parse(packageJson)
+    return packageJsonParsed.version
   } catch (error) {
     console.error(`Error getting version from branch ${branch}:`, error)
     process.exit(1)
   }
 }
-console.log('-------currentBranch-------')
-console.log(currentBranch)
-console.log('-------targetBranch-------')
-console.log(targetBranch)
 
-const version1 = getVersionFromBranch(currentBranch)
-console.log('---version1----')
-console.log(version1)
-console.log('---version1----')
+const currentBranchVersion = getVersionFromBranch(currentBranch)
+const targetBranchVersion = getVersionFromBranch(`remotes/origin/${targetBranch}`)
 
-const version2 = getVersionFromBranch('remotes/origin/development')
+console.log(`Version in branch ${currentBranch}: ${currentBranchVersion}`)
+console.log(`Version in branch ${targetBranch}: ${targetBranchVersion}`)
 
-console.log(`Version in branch ${currentBranch}: ${version1}`)
-console.log(`Version in branch ${targetBranch}: ${version2}`)
-
-if (version1 !== version2) {
-  console.error(`Version mismatch: ${currentBranch} (${version1}) vs ${targetBranch} (${version2})`)
+if (currentBranchVersion !== targetBranchVersion) {
+  console.error(
+    `Version mismatch: ${currentBranch} (${currentBranchVersion}) vs ${targetBranch} (${targetBranchVersion})`
+  )
   process.exit(1)
 } else {
-  console.log(`Versions match: ${version1}`)
+  console.log(`Versions match: ${currentBranchVersion}`)
   process.exit(0)
 }
