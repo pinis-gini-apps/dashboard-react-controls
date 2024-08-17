@@ -5,7 +5,8 @@ const { execSync } = require('child_process')
 const packageJsonPath = 'package.json'
 
 console.log('------process.env.TARGET_BRANCH--------')
-const targetBranch = process.env.TARGET_BRANCH || 'development'
+const targetBranch = process.argv[2]
+console.log(process.env.argv)
 console.log(targetBranch)
 function getCurrentBranch() {
   try {

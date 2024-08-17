@@ -81,21 +81,5 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
-      - name: Get target branch
-        id: get-target-branch
-        run: |
-          TARGET_BRANCH=$(jq -r '.base.ref' $GITHUB_EVENT_PATH)
-          echo "TARGET_BRANCH=$TARGET_BRANCH" >> $GITHUB_ENV
-
-      - name: Verify TARGET_BRANCH
-        run: echo $TARGET_BRANCH
-
       - name: Compare version with target branch
-        run: |
-          TARGET_BRANCH=$(jq -r '.base.ref' $GITHUB_EVENT_PATH)
-          node .github/comparePackageVersions.js
-        env:
-          TARGET_BRANCH: ${{ env.TARGET_BRANCH }}
+        run: node .github/comparePackageVersions.js "${{ github.event.pull_request.base.ref }}"
