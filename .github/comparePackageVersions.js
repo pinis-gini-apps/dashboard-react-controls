@@ -32,10 +32,13 @@ const getVersionFromPackageJson = branch => {
   }
 }
 
-const targetBranch = process.env.TARGET_BRANCH || 'development'
-console.log('------3---------')
+console.log('------process.env.TARGET_BRANCH---------')
+console.log(process.env.TARGET_BRANCH)
 
+const targetBranch = 'development'
+console.log('------targetBranch---------')
 console.log(targetBranch)
+
 const currentVersion = getVersionFromPackageJson('HEAD')
 
 const targetVersion = getVersionFromPackageJson(targetBranch)
