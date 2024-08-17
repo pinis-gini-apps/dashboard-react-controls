@@ -4,15 +4,17 @@ const { execSync } = require('child_process')
 
 const packageJsonPath = 'package.json'
 
-console.log('------process.env.TARGET_BRANCH--------')
 const targetBranch = process.argv[2]
-console.log(process.argv)
-console.log(process.env)
-console.log(JSON.stringify(process))
+console.log('------process.env.TARGET_BRANCH--------')
 console.log(targetBranch)
+console.log('------process.env.TARGET_BRANCH--------')
 function getCurrentBranch() {
   try {
     const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+    console.log('----current branch----')
+    console.log(branch)
+    console.log('----current branch----')
+
     return branch
   } catch (err) {
     console.error('Error getting current branch:', err)
@@ -33,8 +35,16 @@ const getVersionFromBranch = branch => {
     process.exit(1)
   }
 }
+console.log('-------currentBranch-------')
+console.log(currentBranch)
+console.log('-------targetBranch-------')
+console.log(targetBranch)
 
 const version1 = getVersionFromBranch(currentBranch)
+console.log('---version1----')
+console.log(version1)
+console.log('---version1----')
+
 const version2 = getVersionFromBranch(targetBranch)
 
 console.log(`Version in branch ${currentBranch}: ${version1}`)
