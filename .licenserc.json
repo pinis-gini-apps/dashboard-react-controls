@@ -4,6 +4,7 @@
   "ignore": [
     "docs/",
     "vendor/",
-    "dist/"
+    "dist/",
+    ".github/"
   ]
 }

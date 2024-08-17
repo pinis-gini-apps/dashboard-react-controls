@@ -1,7 +1,21 @@
 const fs = require('fs')
 const path = require('path')
-const { execSync } = require('child_process')
+const { exec, execSync } = require('child_process')
 
+const command = 'pwd && ls -l'
+
+exec(command, (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error executing command: ${error}`)
+    return
+  }
+
+  if (stderr) {
+    console.error(`stderr: ${stderr}`)
+  }
+
+  console.log(`stdout:\n${stdout}`)
+})
 const packageJsonPath = path.join(__dirname, 'package.json')
 console.log('------1---------')
 console.log(packageJsonPath)
@@ -10,7 +24,6 @@ const getVersionFromPackageJson = branch => {
     execSync(`git checkout ${branch} -- ${packageJsonPath}`)
     const data = fs.readFileSync(packageJsonPath, 'utf8')
     console.log('------2---------')
-
     console.log(data)
     const packageJson = JSON.parse(data)
     return packageJson.version
