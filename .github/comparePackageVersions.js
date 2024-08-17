@@ -3,11 +3,14 @@ const path = require('path')
 const { execSync } = require('child_process')
 
 const packageJsonPath = path.join(__dirname, 'package.json')
+console.log('------1---------')
 console.log(packageJsonPath)
 const getVersionFromPackageJson = branch => {
   try {
     execSync(`git checkout ${branch} -- ${packageJsonPath}`)
     const data = fs.readFileSync(packageJsonPath, 'utf8')
+    console.log('------2---------')
+
     console.log(data)
     const packageJson = JSON.parse(data)
     return packageJson.version
@@ -18,6 +21,8 @@ const getVersionFromPackageJson = branch => {
 }
 
 const targetBranch = process.env.TARGET_BRANCH || 'development'
+console.log('------3---------')
+
 console.log(targetBranch)
 const currentVersion = getVersionFromPackageJson('HEAD')
 
