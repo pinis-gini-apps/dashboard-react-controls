@@ -1,13 +1,20 @@
 const fs = require('fs')
+const path = require('path')
 const { execSync } = require('child_process')
 
 const packageJsonPath = 'package.json'
 
 const targetBranch = process.argv[2]
-
+console.log('------process.env.TARGET_BRANCH--------')
+console.log(targetBranch)
+console.log('------process.env.TARGET_BRANCH--------')
 function getCurrentBranch() {
   try {
     const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+    console.log('----current branch----')
+    console.log(branch)
+    console.log('----current branch----')
+
     return branch
   } catch (err) {
     console.error('Error getting current branch:', err)
@@ -16,9 +23,19 @@ function getCurrentBranch() {
 }
 
 const currentBranch = getCurrentBranch()
+console.log(currentBranch)
 
+console.log('----git branch-----')
+const branchList = execSync('git branch', { encoding: 'utf-8' })
+console.log(branchList)
 const getVersionFromBranch = branch => {
   try {
+    console.log('----git branch -a-----')
+    const branchList = execSync('git branch', { encoding: 'utf-8' })
+    console.log(branchList)
+    console.log('----git branch-----')
+    const branchList2 = execSync('git branch', { encoding: 'utf-8' })
+    console.log(branchList2)
     execSync(`git checkout ${branch} -- ${packageJsonPath}`)
     const data = fs.readFileSync(packageJsonPath, 'utf8')
     const packageJson = JSON.parse(data)
@@ -28,8 +45,16 @@ const getVersionFromBranch = branch => {
     process.exit(1)
   }
 }
+console.log('-------currentBranch-------')
+console.log(currentBranch)
+console.log('-------targetBranch-------')
+console.log(targetBranch)
 
 const version1 = getVersionFromBranch(currentBranch)
+console.log('---version1----')
+console.log(version1)
+console.log('---version1----')
+
 const version2 = getVersionFromBranch('remotes/origin/development')
 
 console.log(`Version in branch ${currentBranch}: ${version1}`)
