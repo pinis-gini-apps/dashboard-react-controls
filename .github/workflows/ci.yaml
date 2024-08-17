@@ -86,4 +86,4 @@ jobs:
           echo "${{ github.event.pull_request.base.ref }}"
           echo "${{ github.event.pull_request }}"
 
-          node .github/comparePackageVersions.js "${{ github.event.pull_request }}"
+          node .github/comparePackageVersions.js "${{ github.event.pull_request.base.ref }}"
