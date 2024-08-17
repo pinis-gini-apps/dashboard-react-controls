@@ -79,7 +79,7 @@ jobs:
           node-version: '21.6.2'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Get target branch
         id: get-target-branch
