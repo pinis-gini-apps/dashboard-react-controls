@@ -6,7 +6,9 @@ const packageJsonPath = 'package.json'
 
 console.log('------process.env.TARGET_BRANCH--------')
 const targetBranch = process.argv[2]
-console.log(process.env.argv)
+console.log(process.argv)
+console.log(process.env)
+console.log(JSON.stringify(process))
 console.log(targetBranch)
 function getCurrentBranch() {
   try {
