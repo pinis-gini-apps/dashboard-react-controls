@@ -86,16 +86,16 @@ jobs:
 
       - name: Get target branch
         id: get-target-branch
-        run: echo "TARGET_BRANCH=$(jq -r '.base.ref' $GITHUB_EVENT_PATH)" >> $GITHUB_ENV
+        run: |
+          TARGET_BRANCH=$(jq -r '.base.ref' $GITHUB_EVENT_PATH)
+          echo "TARGET_BRANCH=$TARGET_BRANCH" >> $GITHUB_ENV
 
       - name: Verify TARGET_BRANCH
         run: echo $TARGET_BRANCH
 
       - name: Compare version with target branch
-        run: node .github/comparePackageVersions.js
-        env:
-          TARGET_BRANCH: $TARGET_BRANCH
-      - name: Run ESLint
         run: |
-          export NODE_ENV=production
-          npx eslint 'src/**/*.js'
+          TARGET_BRANCH=$(jq -r '.base.ref' $GITHUB_EVENT_PATH)
+          node .github/comparePackageVersions.js
+        env:
+          TARGET_BRANCH: ${{ env.TARGET_BRANCH }}
