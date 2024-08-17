@@ -6,7 +6,7 @@ const packageJsonPath = 'package.json'
 
 console.log('------process.env.TARGET_BRANCH--------')
 const targetBranch = process.env.TARGET_BRANCH || 'development'
-
+console.log(targetBranch)
 function getCurrentBranch() {
   try {
     const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
