@@ -75,7 +75,7 @@ jobs:
         run: |
           echo "Skipping workflow because this is a merge commit."
           exit 0
-      -
+
       - name: Checkout code
         uses: actions/checkout@v3
 
