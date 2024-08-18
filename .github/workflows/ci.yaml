@@ -74,7 +74,7 @@ jobs:
         if: github.event.pull_request.merged == true
         run: |
           echo "Skipping workflow because this is a merge commit."
-          run: echo "${{ toJson(github.event) }}"
+          echo "${{ toJson(github.event) }}"
           exit 0
 
       - name: get github event
