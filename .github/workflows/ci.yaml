@@ -87,6 +87,19 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Run ESLint
+        run: |
+          export NODE_ENV=production
+          npx eslint 'src/**/*.js'
+
       - name: Compare version with target branch
+        if: always()
         run: | 
           node .github/comparePackageVersions.js "${{ github.event.pull_request.base.ref }}"
+
+      - name: Run build
+        if: always()
+        run: |
+            rm -rf dist/*
+            babel src/lib --out-dir dist --copy-files --no-copy-ignored --ignore src/**/*.stories.js
+
