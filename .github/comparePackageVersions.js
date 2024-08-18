@@ -47,12 +47,12 @@ const isVersionGreater = (targetBranchVersion, currentBranchVersion) => {
 
 if (isVersionGreater(targetBranchVersion, currentBranchVersion)) {
   console.log(
-    `\x1b[32mNew version (${currentBranchVersion}) is greater than the old version (${targetBranchVersion}).\x1b[0m`
+    `\x1b[32mCurrent version (${currentBranchVersion}) is greater than the target version (${targetBranchVersion}).\x1b[0m`
   )
   process.exit(0)
 } else {
   console.error(
-    `\x1b[31mNew version (${currentBranchVersion}) is not greater than the old version (${targetBranchVersion}).\x1b[0m`
+    `\x1b[31mCurrent version (${currentBranchVersion}) is not greater than the target version (${targetBranchVersion}).\x1b[0m`
   )
   process.exit(1)
 }
