@@ -116,7 +116,7 @@ jobs:
         if: github.event.pull_request.merged != true
         run: |
           echo "Skipping workflow because this is a not merge commit."
-          exit 0
+          exit 1
 
       - name: Checkout code
         uses: actions/checkout@v3
