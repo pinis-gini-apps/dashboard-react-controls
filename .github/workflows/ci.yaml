@@ -74,11 +74,11 @@ jobs:
         if: github.event.pull_request.merged == true
         run: |
           echo "Skipping workflow because this is a merge commit."
-          run: echo "${{toJson(github.event)}}"
+          run: echo "${{ toJson(github.event) }}"
           exit 0
 
       - name: get github event
-        run: echo "${{toJson(github.event)}}"
+        run: echo "${{ toJson(github.event) }}"
 
       - name: Checkout code
         uses: actions/checkout@v3
