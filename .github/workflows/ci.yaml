@@ -66,15 +66,24 @@ jobs:
 
           "
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+
+      - name: get github object
+        run: echo "${{toJson(github.event)}}"
+
   check-version:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Exit if merge commit
-        if: github.event.pull_request.merged == true
-        run: |
-          echo "Skipping workflow because this is a merge commit."
-          exit 0
+#      - name: Exit if merge commit
+#        if: github.event.pull_request.merged == true
+#        run: |
+#          echo "Skipping workflow because this is a merge commit."
+#          exit 0
 
       - name: Checkout code
         uses: actions/checkout@v3
