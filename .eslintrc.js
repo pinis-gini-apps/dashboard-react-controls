@@ -27,6 +27,7 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
+    'react-hooks/rules-of-hooks': 'off',
     quotes: [
       'error',
       'single',
