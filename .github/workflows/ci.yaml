@@ -99,7 +99,5 @@ jobs:
 
       - name: Run build
         if: always()
-        run: |
-            rm -rf dist/*
-            babel src/lib --out-dir dist --copy-files --no-copy-ignored --ignore src/**/*.stories.js
+        run: npm run compile
 
