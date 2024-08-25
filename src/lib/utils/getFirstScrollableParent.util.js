@@ -31,7 +31,7 @@ const style = (node, prop) => getComputedStyle(node, null).getPropertyValue(prop
  * @param {Node} node - The DOM node.
  * @returns {boolean} Returns true if the node has a scrollable overflow, false otherwise.
  */
-const scroll = (node) =>
+const scroll = node =>
   regex.test(style(node, 'overflow') + style(node, 'overflow-y') + style(node, 'overflow-x'))
 
 /**
@@ -40,9 +40,9 @@ const scroll = (node) =>
  * @param {Node} node - The DOM node.
  * @returns {Node} The first scrollable parent node.
  */
-export const getFirstScrollableParent = (node) =>
+export const getFirstScrollableParent = node =>
   !node || node === document.body
     ? document.body
     : scroll(node)
-    ? node
-    : getFirstScrollableParent(node.parentNode)
+      ? node
+      : getFirstScrollableParent(node.parentNode)

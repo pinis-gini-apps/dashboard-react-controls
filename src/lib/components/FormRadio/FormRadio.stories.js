@@ -30,7 +30,7 @@ const commonArgs = {
   name: 'radio'
 }
 
-const Template = (args) => <Form onSubmit={() => null}>{() => <FormRadio {...args} />}</Form>
+const Template = args => <Form onSubmit={() => null}>{() => <FormRadio {...args} />}</Form>
 
 export const Normal = Template.bind({})
 Normal.args = {

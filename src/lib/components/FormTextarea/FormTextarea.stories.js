@@ -29,7 +29,7 @@ const commonArgs = {
   rows: 3
 }
 
-const Template = (args) => <Form onSubmit={() => null}>{() => <FormTextarea {...args} />}</Form>
+const Template = args => <Form onSubmit={() => null}>{() => <FormTextarea {...args} />}</Form>
 
 export const Normal = Template.bind({})
 Normal.args = {

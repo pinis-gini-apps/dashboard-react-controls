@@ -47,7 +47,7 @@ const FormToggle = ({
               data-testid={name ? `${name}-form-toggle` : 'form-toggle'}
               id={name}
               {...{ ...input, ...inputProps }}
-              onChange={(event) => {
+              onChange={event => {
                 onChange && onChange(event)
                 input.onChange(event)
               }}

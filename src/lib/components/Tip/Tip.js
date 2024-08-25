@@ -45,7 +45,7 @@ const Tip = ({ className = '', text, withExclamationMark }) => {
     text.length <= minTextLength ? 'tip_small' : 'tip_big'
   )
 
-  const handleMouseEnter = useCallback((event) => {
+  const handleMouseEnter = useCallback(event => {
     setIsShow(true)
   }, [])
 

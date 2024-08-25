@@ -47,7 +47,7 @@ const Wizard = ({
   const [firstDisabledStepIdx, setFirstDisabledStepIdx] = useState(null)
 
   const visibleSteps = useMemo(() => {
-    return stepsConfig?.filter((step) => !step.hidden) || []
+    return stepsConfig?.filter(step => !step.hidden) || []
   }, [stepsConfig])
 
   useLayoutEffect(() => {
@@ -65,7 +65,7 @@ const Wizard = ({
   }, [visibleSteps])
 
   useEffect(() => {
-    const firstInvalidStepIdx = visibleSteps.findIndex((step) => step.invalid)
+    const firstInvalidStepIdx = visibleSteps.findIndex(step => step.invalid)
 
     if (jumpingToFirstInvalid && isNumber(firstInvalidStepIdx) && firstInvalidStepIdx !== -1) {
       setActiveStepNumber(firstInvalidStepIdx)
@@ -107,20 +107,20 @@ const Wizard = ({
   }, [activeStepNumber, totalSteps])
 
   const goToNextStep = () => {
-    setActiveStepNumber((prevStep) => Math.min(++prevStep, totalSteps))
+    setActiveStepNumber(prevStep => Math.min(++prevStep, totalSteps))
   }
 
-  const goToPreviousStep = () => setActiveStepNumber((prevStep) => Math.max(--prevStep, 0))
+  const goToPreviousStep = () => setActiveStepNumber(prevStep => Math.max(--prevStep, 0))
 
   const goToFirstInvalidStep = () => {
     setJumpingToFirstInvalid(true)
   }
 
-  const jumpToStep = (idx) => {
+  const jumpToStep = idx => {
     return setActiveStepNumber(idx)
   }
 
-  const getDefaultActions = (stepConfig) => {
+  const getDefaultActions = stepConfig => {
     const defaultActions = []
 
     if (activeStepNumber !== 0) {
@@ -153,11 +153,11 @@ const Wizard = ({
     if (isEmpty(visibleSteps)) return []
 
     const actionsList = getDefaultActions(visibleSteps[activeStepNumber])
-    const allStepsAreEnabled = visibleSteps.every((step) => !step.disabled)
+    const allStepsAreEnabled = visibleSteps.every(step => !step.disabled)
 
     if (getActions) {
       const actions = getActions({ allStepsAreEnabled, jumpToStep, goToFirstInvalidStep })
-      const mainActions = actions.map((action) => <Button {...action} />)
+      const mainActions = actions.map(action => <Button {...action} />)
       actionsList.push(...mainActions)
     }
 

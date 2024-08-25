@@ -40,7 +40,7 @@ const commonArgs = {
   ]
 }
 
-const Template = (args) => <Form onSubmit={() => null}>{() => <FormCombobox {...args} />}</Form>
+const Template = args => <Form onSubmit={() => null}>{() => <FormCombobox {...args} />}</Form>
 
 export const Dense = Template.bind({})
 Dense.args = {

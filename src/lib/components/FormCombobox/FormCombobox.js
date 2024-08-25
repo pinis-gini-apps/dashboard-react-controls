@@ -89,13 +89,13 @@ const FormCombobox = ({
   )
 
   useEffect(() => {
-    setValidationRules((prevState) =>
-      prevState.map((rule) => ({
+    setValidationRules(prevState =>
+      prevState.map(rule => ({
         ...rule,
         isValid:
           !meta.error || !Array.isArray(meta.error)
             ? true
-            : !meta.error.some((err) => err.name === rule.name)
+            : !meta.error.some(err => err.name === rule.name)
       }))
     )
   }, [meta.error])
@@ -115,7 +115,7 @@ const FormCombobox = ({
   }, [meta.invalid, meta.modified, meta.submitFailed, meta.touched, meta.validating])
 
   const handleOutsideClick = useCallback(
-    (event) => {
+    event => {
       if (
         comboboxRef.current &&
         !comboboxRef.current.contains(event.target) &&
@@ -132,7 +132,7 @@ const FormCombobox = ({
     [input, onBlur]
   )
 
-  const handleScroll = (event) => {
+  const handleScroll = event => {
     if (comboboxRef.current && comboboxRef.current.contains(event.target)) return
 
     if (
@@ -169,7 +169,7 @@ const FormCombobox = ({
     })
   }
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const target = event.target
 
     setDropdownStyle({
@@ -201,7 +201,7 @@ const FormCombobox = ({
     }
   }
 
-  const handleSuggestionListOptionClick = (option) => {
+  const handleSuggestionListOptionClick = option => {
     const inputValueItems = inputValue.split('/')
     const valueIndex = inputValueItems.length - 1
     let formattedValue = option.customDelimiter
@@ -241,10 +241,10 @@ const FormCombobox = ({
     setShowSuggestionList(true)
   }
 
-  const suggestionListSearchChange = (event) => {
+  const suggestionListSearchChange = event => {
     event.persist()
     setDropdownList(() =>
-      suggestionList.filter((option) => {
+      suggestionList.filter(option => {
         return option.id.startsWith(event.target.value)
       })
     )
@@ -275,10 +275,10 @@ const FormCombobox = ({
 
     if (!isEmpty(validationRules)) {
       const [newRules, isValidField] = checkPatternsValidity(rules, valueToValidate)
-      const invalidRules = newRules.filter((rule) => !rule.isValid)
+      const invalidRules = newRules.filter(rule => !rule.isValid)
 
       if (!isValidField) {
-        validationError = invalidRules.map((rule) => ({ name: rule.name, label: rule.label }))
+        validationError = invalidRules.map(rule => ({ name: rule.name, label: rule.label }))
       }
     }
 
@@ -298,7 +298,7 @@ const FormCombobox = ({
   }
 
   const warningIconClick = () => {
-    setShowValidationRules((state) => !state)
+    setShowValidationRules(state => !state)
     setShowSelectDropdown(false)
   }
 
@@ -334,7 +334,7 @@ const FormCombobox = ({
             <div className={labelClassNames}>
               <label data-testid="label" htmlFor={input.name}>
                 {label}
-                {(required || validationRules.find((rule) => rule.name === 'required')) && (
+                {(required || validationRules.find(rule => rule.name === 'required')) && (
                   <span className="form-field__label-mandatory"> *</span>
                 )}
               </label>
@@ -363,7 +363,7 @@ const FormCombobox = ({
                   className="form-field-combobox__dropdown form-field-combobox__dropdown-select"
                 >
                   <ul className="form-field-combobox__dropdown-list">
-                    {selectOptions.map((option) => {
+                    {selectOptions.map(option => {
                       if (!option.hidden) {
                         const selectOptionClassNames = classnames(
                           'form-field-combobox__dropdown-list-option',
@@ -429,7 +429,7 @@ const FormCombobox = ({
                         No data
                       </li>
                     ) : (
-                      dropdownList.map((value) => (
+                      dropdownList.map(value => (
                         <li
                           className="form-field-combobox__dropdown-list-option"
                           key={value.id}

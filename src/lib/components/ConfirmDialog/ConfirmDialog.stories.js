@@ -38,7 +38,7 @@ const commonArgs = {
   isOpen: true
 }
 
-const Template = (args) => <ConfirmDialog {...args} />
+const Template = args => <ConfirmDialog {...args} />
 
 export const Normal = Template.bind({})
 Normal.args = {

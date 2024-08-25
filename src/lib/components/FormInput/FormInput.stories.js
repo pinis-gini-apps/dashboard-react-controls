@@ -27,10 +27,9 @@ export default {
 
 const commonArgs = {
   name: 'input',
-  placeholder: 'placeholder',
-
+  placeholder: 'placeholder'
 }
-const Template = (args) => <Form onSubmit={() => null}>{() => <FormInput {...args} />}</Form>
+const Template = args => <Form onSubmit={() => null}>{() => <FormInput {...args} />}</Form>
 
 export const Dense = Template.bind({})
 Dense.args = {

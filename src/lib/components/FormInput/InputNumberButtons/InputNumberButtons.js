@@ -32,7 +32,7 @@ const InputNumberButtons = ({
   step = 1,
   value
 }) => {
-  const handleIncrease = (event) => {
+  const handleIncrease = event => {
     event.preventDefault()
     if (max && value >= max) return
 
@@ -42,7 +42,7 @@ const InputNumberButtons = ({
     onChange(newValue)
   }
 
-  const handleDecrease = (event) => {
+  const handleDecrease = event => {
     event.preventDefault()
 
     if (min && value <= min) return
