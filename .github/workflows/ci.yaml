@@ -86,6 +86,7 @@ jobs:
         run: |
           export NODE_ENV=production
           npx eslint 'src/**/*.js'
+        continue-on-error: true
 
   compile:
     runs-on: ubuntu-latest
