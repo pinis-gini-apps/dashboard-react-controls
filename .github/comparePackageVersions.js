@@ -22,7 +22,7 @@ const { execSync } = require('child_process')
 
 const targetBranch = process.argv[2]
 
-function getCurrentBranch() {
+const getCurrentBranch = () => {
   try {
     return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
   } catch (err) {
