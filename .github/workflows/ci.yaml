@@ -109,12 +109,9 @@ jobs:
           export NODE_ENV=production
           eslint_output=$(npx eslint 'src/**/*.js' || true)
           echo "$eslint_output"
-          if [[ "$eslint_output" == *"error"* ]]; then
+          if [[ "$eslint_output" == *"error"* ]] || [[ "$eslint_output" == *"warning"* ]]; then
             echo "::set-output name=eslint_status::fail"
-            echo "::set-output name=eslint_message::'ESLint errors detected. Please review the code for linting issues.'"
-          elif [[ "$eslint_output" == *"warning"* ]]; then
-            echo "::set-output name=eslint_status::warning"
-            echo "::set-output name=eslint_message::'ESLint warnings detected. Please review the code for linting issues.'"
+            echo "::set-output name=eslint_message::ESLint detected issues in the code. Please review and address the linting errors and warnings."
           else
             echo "::set-output name=eslint_status::success"
           fi
