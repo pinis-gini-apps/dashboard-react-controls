@@ -124,10 +124,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          comment_body=$(echo "${{ steps.eslint.outputs.eslint_message }}" | jq -R .)
           curl -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            -d '{"body":"Check ESLint in project: ${{ steps.eslint.outputs.eslint_message }}"}' \
+            -d "{\"body\": $comment_body}" \
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
 
   compile:
