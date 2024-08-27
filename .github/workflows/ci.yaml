@@ -85,11 +85,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: get github object
-        run: | 
-          echo '${{ toJson(github.event.pull_request.merged) }}'
-          echo '${{ toJson(github.head_ref) }}'
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -98,11 +93,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-#      - name: Run ESLint
-#        run: |
-#          export NODE_ENV=production
-#          npx eslint 'src/**/*.js'
-#          continue-on-error: true
       - name: Run ESLint
         id: eslint
         run: |
