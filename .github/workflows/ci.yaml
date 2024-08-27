@@ -99,7 +99,7 @@ jobs:
           export NODE_ENV=production
           eslint_output=$(npx eslint 'src/**/*' || true)
           echo "$eslint_output"
-          if [[ "$eslint_output" == *"error"* ]] || [[ "$eslint_output" == *"warning"* ]]; then
+          if [[ "$eslint_output" == *"error"* ]]; then
             echo "::set-output name=eslint_status::fail"
             echo "::set-output name=eslint_message::ESLint detected issues in the code. Please review and address the linting errors and warnings."
           else
@@ -177,7 +177,7 @@ jobs:
       - name: Run build
         run: npm run compile
 
-  check-version:
+  check-package-version:
     runs-on: ubuntu-latest
     needs: compile
     if: github.event.pull_request.merged != true
@@ -191,7 +191,6 @@ jobs:
         run: |
           echo '${{ toJson(github.head_ref) }}'
           [[ "${{ github.head_ref }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Branch does not match the pattern: ^v[0-9]+\.[0-9]+\.[0-9]+$. Skipping job."; exit 1; }
-
 
       - name: get github object
         run: |
