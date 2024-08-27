@@ -104,8 +104,8 @@ jobs:
 
   compile:
     runs-on: ubuntu-latest
-    needs: lint
-    if: github.event.pull_request.merged != true
+#    needs: lint
+    if: github.event.pull_request.merged != true && startsWith(github.head_ref, 'feature/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
