@@ -97,7 +97,7 @@ jobs:
         id: eslint
         run: |
           export NODE_ENV=production
-          eslint_output=$(npx eslint 'src/**/*.js' || true)
+          eslint_output=$(npx eslint 'src/**/*' || true)
           echo "$eslint_output"
           if [[ "$eslint_output" == *"error"* ]] || [[ "$eslint_output" == *"warning"* ]]; then
             echo "::set-output name=eslint_status::fail"
@@ -112,6 +112,46 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           comment_body=$(echo "${{ steps.eslint.outputs.eslint_message }}" | jq -R .)
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"body\": $comment_body}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+
+  prettier:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged != true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21.6.2'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Prettier
+        id: prettier
+        run: |
+          prettier_output=$(npx prettier --check 'src/**/*' || true)
+          echo "$prettier_output"
+          if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
+            echo "::set-output name=prettier_status::success"
+          else
+            echo "::set-output name=prettier_status::fail"
+            echo "::set-output name=prettier_message::Prettier detected formatting issues. Please review and format the code."
+          fi
+
+      - name: Comment on PR if Prettier issues
+        if: steps.prettier.outputs.prettier_status != 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          comment_body=$(echo "${{ steps.prettier.outputs.prettier_message }}" | jq -R .)
           curl -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
