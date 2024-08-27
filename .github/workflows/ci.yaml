@@ -98,11 +98,37 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+#      - name: Run ESLint
+#        run: |
+#          export NODE_ENV=production
+#          npx eslint 'src/**/*.js'
+#          continue-on-error: true
       - name: Run ESLint
+        id: eslint
         run: |
           export NODE_ENV=production
-          npx eslint 'src/**/*.js'
-        continue-on-error: true
+          eslint_output=$(npx eslint 'src/**/*.js' || true)
+          echo "$eslint_output"
+          if [[ "$eslint_output" == *"error"* ]]; then
+            echo "::set-output name=eslint_status::fail"
+            echo "::set-output name=eslint_message::'ESLint errors detected. Please review the code for linting issues.'"
+          elif [[ "$eslint_output" == *"warning"* ]]; then
+            echo "::set-output name=eslint_status::warning"
+            echo "::set-output name=eslint_message::'ESLint warnings detected. Please review the code for linting issues.'"
+          else
+            echo "::set-output name=eslint_status::success"
+          fi
+
+      - name: Comment on PR if ESLint issues
+        if: steps.eslint.outputs.eslint_status != 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"body":"Check ESLint in project: ${{ steps.eslint.outputs.eslint_message }}"}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
 
   compile:
     runs-on: ubuntu-latest
