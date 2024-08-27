@@ -126,11 +126,20 @@ jobs:
   check-version:
     runs-on: ubuntu-latest
     needs: compile
-    if: github.event.pull_request.merged != true && (startsWith(github.head_ref, 'ML-7452/') || github.head_ref =~ '^v[0-9]+\\.[0-9]+\\.[0-9]+$')
+#    if: github.event.pull_request.merged != true
+    if: ${{ startsWith(github.ref, 'refs/heads/v') && github.ref =~ '^refs/heads/v[0-9]+\.[0-9]+\.[0-9]+$' }}
+    run: |
+      echo "Branch is a valid dist version."
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Check if branch is dist version
+        id: check_branch
+        run: |
+          [[ "${{ github.ref#refs/heads/ }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Branch does not match the pattern. Skipping job."; exit 0; }
+
 
       - name: get github object
         run: |
