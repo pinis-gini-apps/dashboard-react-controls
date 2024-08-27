@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
 #    needs: compile
 #    if: github.event.pull_request.merged == false && startsWith(github.head_ref, 'ML-7452/')
-    if:  startsWith(github.head_ref, 'ML-7452/')
+    if:  startsWith(github.head_ref, 'ML-7452')
 
     steps:
       - name: Checkout code
