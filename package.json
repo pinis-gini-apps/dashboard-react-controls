@@ -82,7 +82,7 @@
         "build": "react-scripts build",
         "lint": "eslint 'src/**/*.{js,jsx}'",
         "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix",
-        "prettier": "prettier --check 'src/**/*.{js,jsx,scss}' --ignore-path .prettierignore",
+        "prettier": "prettier --check 'src/**/*.{js,jsx,scss}' --config .prettierrc.js --ignore-path .prettierignore",
         "prettier:fix": "prettier --write 'src/**/*.{js,jsx,scss}' --config .prettierrc.js",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
