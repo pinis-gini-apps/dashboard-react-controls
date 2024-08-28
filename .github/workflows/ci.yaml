@@ -190,6 +190,8 @@ jobs:
         id: check_branch
         run: |
           echo '${{ toJson(github.head_ref) }}'
+          echo '${{ toJson(github.event.pull_request.base.repo.fork) }}'
+          echo '${{ toJson(github.event.pull_request) }}'
           [[ "${{ github.head_ref }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
             echo "Branch does not match the pattern: ^v[0-9]+\.[0-9]+\.[0-9]+$. Skipping job."; 
             exit 1; }
