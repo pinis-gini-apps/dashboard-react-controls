@@ -139,7 +139,6 @@ jobs:
         run: |
           prettier_output=$(npm run prettier || true)
           echo '---------------------'
-          echo '${{ toJson(prettier_output) }}'
           echo "$prettier_output"
           echo '----------end-----------'
           
