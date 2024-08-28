@@ -137,7 +137,7 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: |
-          prettier_output=$(npm run lint || true)
+          prettier_output=$(npm run prettier || true)
           echo "$prettier_output"
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
             echo "::set-output name=prettier_status::success"
