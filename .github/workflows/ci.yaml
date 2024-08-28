@@ -97,7 +97,7 @@ jobs:
         id: eslint
         run: |
           export NODE_ENV=production
-          eslint_output=$(npx eslint 'src/**/*.{js,scss,stories.js}' || true)
+          eslint_output=$(npm run lint || true)
           echo "$eslint_output"
           if [[ "$eslint_output" == *"error"* ]]; then
             echo "::set-output name=eslint_status::fail"
