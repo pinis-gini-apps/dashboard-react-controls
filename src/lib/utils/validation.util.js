@@ -213,10 +213,7 @@ const generateRule = {
   maxLengthBetweenDelimiters: (delimiter, maxLength, delimiterDescription) => {
     return {
       name: 'labelsLength',
-      label: `Max length between two ${lodash.defaultTo(
-        delimiterDescription,
-        delimiter
-      )}: ${maxLength}`,
+      label: `Max length between two ${lodash.defaultTo(delimiterDescription, delimiter)}: ${maxLength}`,
       pattern: value => {
         return value.split(delimiter).every(item => {
           return item.length >= 1 && item.length <= maxLength
