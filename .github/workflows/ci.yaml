@@ -137,6 +137,8 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: |
+          prettier_test=$(npx prettier --check src/lib/components/FormCombobox/FormCombobox.js --log-level debug)
+          echo "$prettier_test"
           prettier_output=$(npm run prettier || true)
           echo "$prettier_output"
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
