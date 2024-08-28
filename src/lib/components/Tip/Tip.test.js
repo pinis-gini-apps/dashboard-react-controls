@@ -22,7 +22,7 @@ jest.mock('../../images/question-mark.svg', () => ({
   ReactComponent: 'Question-icon'
 }))
 
-const renderComponent = (props) => render(<Tip {...props} />)
+const renderComponent = props => render(<Tip {...props} />)
 
 describe('Tip component', () => {
   let wrapper

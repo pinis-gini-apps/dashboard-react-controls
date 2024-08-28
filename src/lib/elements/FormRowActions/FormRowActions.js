@@ -48,7 +48,7 @@ const FormRowActions = ({
         <>
           <RoundedIcon
             id="apply-btn"
-            onClick={(event) => applyChanges(event, index)}
+            onClick={event => applyChanges(event, index)}
             tooltipText="Apply"
             disabled={disabled}
           >
@@ -56,7 +56,7 @@ const FormRowActions = ({
           </RoundedIcon>
           <RoundedIcon
             id="delete-discard-btn"
-            onClick={(event) => discardOrDelete(event, fieldsPath, index)}
+            onClick={event => discardOrDelete(event, fieldsPath, index)}
             tooltipText={editingItem.ui?.isNew ? 'Delete' : 'Discard changes'}
             disabled={disabled}
           >
@@ -68,7 +68,7 @@ const FormRowActions = ({
         <>
           <RoundedIcon
             id="edit-btn"
-            onClick={(event) => {
+            onClick={event => {
               event.preventDefault()
             }}
             tooltipText="Edit"
@@ -80,7 +80,7 @@ const FormRowActions = ({
           {!deleteButtonIsHidden && (
             <RoundedIcon
               id="delete-btn"
-              onClick={(event) => {
+              onClick={event => {
                 deleteRow(event, fieldsPath, index)
               }}
               tooltipText="Delete"

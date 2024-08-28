@@ -59,6 +59,6 @@ export const parseObjectToKeyValue = (object = {}) => {
   })
 }
 
-export const isSubmitDisabled = (formState) => {
+export const isSubmitDisabled = formState => {
   return formState.submitting || (formState.invalid && formState.submitFailed)
 }

@@ -80,11 +80,11 @@ const FormSelect = ({
     !input.value && 'form-field__select-placeholder'
   )
 
-  const selectedOption = options.find((option) => option.id === input.value)
+  const selectedOption = options.find(option => option.id === input.value)
 
   const getFilteredOptions = useCallback(
-    (options) => {
-      return options.filter((option) => {
+    options => {
+      return options.filter(option => {
         return !search || option.label.toLowerCase().includes(searchValue.toLowerCase())
       })
     },
@@ -117,13 +117,13 @@ const FormSelect = ({
     const multipleValue =
       multiple && input.value.includes('all') && input.value.length > 1
         ? options
-            .filter((option) => option.id !== 'all')
-            .filter((option) => input.value.includes(option.id))
-            .map((option) => option.label)
+            .filter(option => option.id !== 'all')
+            .filter(option => input.value.includes(option.id))
+            .map(option => option.label)
             .join(', ')
         : options
-            .filter((option) => input.value.includes(option.id))
-            .map((option) => option.label)
+            .filter(option => input.value.includes(option.id))
+            .map(option => option.label)
             .join(', ')
 
     return !multiple
@@ -154,7 +154,7 @@ const FormSelect = ({
   }, [input, isOpen])
 
   const clickHandler = useCallback(
-    (event) => {
+    event => {
       if (selectRef.current !== event.target.closest('.form-field-select')) {
         closeMenu()
       }
@@ -163,7 +163,7 @@ const FormSelect = ({
   )
 
   const handleScroll = useCallback(
-    (event) => {
+    event => {
       if (!event.target.closest('.options-list__body')) {
         closeMenu()
       }
@@ -222,7 +222,7 @@ const FormSelect = ({
   }
 
   const handleCloseSelectBody = useCallback(
-    (event) => {
+    event => {
       event.stopPropagation()
       if (multiple) return
 
@@ -248,7 +248,7 @@ const FormSelect = ({
     }
   }
 
-  const validateField = (value) => {
+  const validateField = value => {
     if (required) {
       return value ? undefined : 'Required'
     }
@@ -290,7 +290,7 @@ const FormSelect = ({
                     {selectedItemAction.handler ? (
                       <Tooltip template={<TextTooltipTemplate text={selectedItemAction.tooltip} />}>
                         <button
-                          onClick={(event) => {
+                          onClick={event => {
                             if (selectedItemAction.confirm) {
                               setConfirmDialogOpen(true)
                             } else {
@@ -364,20 +364,20 @@ const FormSelect = ({
                         type="text"
                         placeholder="Search..."
                         value={searchValue}
-                        onChange={(event) => setSearchValue(event.target.value)}
+                        onChange={event => setSearchValue(event.target.value)}
                         ref={searchRef}
                         autoFocus
                       />
                     </div>
                   )}
                   <ul className="options-list" ref={optionsListRef}>
-                    {sortedOptionsList.map((option) => {
+                    {sortedOptionsList.map(option => {
                       return (
                         <SelectOption
                           item={option}
                           key={option.id}
                           name={name}
-                          onClick={(selectedOption) => {
+                          onClick={selectedOption => {
                             handleSelectOptionClick(selectedOption, option)
                           }}
                           multiple={multiple}

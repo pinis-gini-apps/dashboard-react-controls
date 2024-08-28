@@ -47,17 +47,17 @@ const ConfirmDialog = ({
     messageOnly && 'confirm-dialog__message-only'
   )
 
-  const handleCancelDialog = (event) => {
+  const handleCancelDialog = event => {
     onResolve && onResolve()
     cancelButton.handler && cancelButton.handler(event)
   }
 
-  const handleCloseDialog = (event) => {
+  const handleCloseDialog = event => {
     onResolve && onResolve()
     closePopUp && closePopUp(event)
   }
 
-  const handleConfirmDialog = (event) => {
+  const handleConfirmDialog = event => {
     onResolve && onResolve()
     confirmButton.handler && confirmButton.handler(event)
   }

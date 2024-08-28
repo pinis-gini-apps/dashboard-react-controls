@@ -16,12 +16,12 @@ such restriction.
 */
 export const uniquenessError = { name: 'uniqueness', label: 'Key must be unique' }
 
-export const getTextWidth = (elementWithText) => {
+export const getTextWidth = elementWithText => {
   if (!elementWithText) {
     return 0
   }
   const hiddenElementId = 'chips-hidden-element'
-  let hiddenElement  = document.getElementById(hiddenElementId)
+  let hiddenElement = document.getElementById(hiddenElementId)
 
   if (!hiddenElement) {
     hiddenElement = document.createElement('span')
@@ -33,15 +33,15 @@ export const getTextWidth = (elementWithText) => {
     }
 
     for (const [styleName, styleValue] of Object.entries(styles)) {
-      hiddenElement.style[styleName ] = styleValue
+      hiddenElement.style[styleName] = styleValue
     }
 
     hiddenElement.style.font = window.getComputedStyle(elementWithText).font
     hiddenElement.id = hiddenElementId
-    hiddenElement.tabIndex  = -1
+    hiddenElement.tabIndex = -1
     document.body.append(hiddenElement)
   }
-  
+
   hiddenElement.textContent = elementWithText.value
 
   return hiddenElement.offsetWidth ?? 0

@@ -77,7 +77,7 @@ export const CHIPS = PropTypes.arrayOf(CHIP)
 export const POP_UP_CUSTOM_POSITION = PropTypes.shape({
   element: PropTypes.shape({}),
   position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
-  autoHorizontalPosition : PropTypes.bool,
+  autoHorizontalPosition: PropTypes.bool,
   autoVerticalPosition: PropTypes.bool
 })
 

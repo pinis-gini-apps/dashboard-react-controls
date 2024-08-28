@@ -18,7 +18,7 @@ import React from 'react'
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import SelectOption from './SelectOption'
 
-const renderComponent = (props) => render(<SelectOption {...props} />)
+const renderComponent = props => render(<SelectOption {...props} />)
 
 jest.mock('../../images/checkbox-unchecked.svg', () => ({
   ReactComponent: 'unchecked-icon'

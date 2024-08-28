@@ -22,7 +22,7 @@ export const useDebounce = () => (validate, time) => {
   const lastResult = useRef(null)
 
   return function (value) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (timeout.current) {
         timeout.current()
       }

@@ -173,7 +173,8 @@ const generateRule = {
   validCharacters: (chars, labelPrefix = '') => {
     return {
       name: ValidationConstants.VALID_CHARACTERS.NAME,
-      label: labelPrefix + ValidationConstants.VALID_CHARACTERS.LABEL + ': ' + convertToLabel(chars),
+      label:
+        labelPrefix + ValidationConstants.VALID_CHARACTERS.LABEL + ': ' + convertToLabel(chars),
       pattern: new RegExp('^[' + convertToPattern(chars) + ']+$')
     }
   },
@@ -295,7 +296,7 @@ const commonRules = {
   ],
   k8sLabels: {
     getValue: (withPrefix = false) => {
-      let labelPrefix = withPrefix ? '[Value] ': ''
+      let labelPrefix = withPrefix ? '[Value] ' : ''
 
       return [
         generateRule.beginEndWith('a-z A-Z 0-9', labelPrefix),

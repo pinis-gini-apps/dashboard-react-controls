@@ -94,7 +94,7 @@ const FormChipCellView = React.forwardRef(
         {({ fields, meta }) => {
           if (
             !isEmpty(validationRules) &&
-            validationRules.key.every((rule) => rule.name !== uniquenessError.name)
+            validationRules.key.every(rule => rule.name !== uniquenessError.name)
           ) {
             validationRules.key.push(uniquenessError)
           }
@@ -185,7 +185,7 @@ const FormChipCellView = React.forwardRef(
                     <button
                       data-testid={`${name}-add-chip`}
                       className={buttonAddClassNames}
-                      onClick={(e) => handleAddNewChip(e, fields)}
+                      onClick={e => handleAddNewChip(e, fields)}
                     >
                       <Add />
                     </button>

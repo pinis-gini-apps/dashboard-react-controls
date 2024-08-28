@@ -55,7 +55,7 @@ const FormChip = React.forwardRef(
     useEffect(() => {
       queueMicrotask(() => {
         if (chipRef.current && setChipsSizes) {
-          setChipsSizes((state) => ({
+          setChipsSizes(state => ({
             ...state,
             [chipIndex]: chipRef.current.getBoundingClientRect().width
           }))
@@ -64,7 +64,7 @@ const FormChip = React.forwardRef(
     }, [chipIndex, setChipsSizes])
 
     return (
-      <div onClick={(event) => handleToEditMode(event, chipIndex, keyName)} ref={chipRef}>
+      <div onClick={event => handleToEditMode(event, chipIndex, keyName)} ref={chipRef}>
         <NewChipForm
           chip={chip}
           chipIndex={chipIndex}
