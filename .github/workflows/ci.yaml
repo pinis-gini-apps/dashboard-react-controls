@@ -129,7 +129,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '21.6.2'
+          node-version: '20.10.0'
 
       - name: Install Dependencies
         run: npm install
@@ -143,7 +143,8 @@ jobs:
             echo "::set-output name=prettier_status::success"
           else
             echo "::set-output name=prettier_status::fail"
-            echo "::set-output name=prettier_message::Prettier detected formatting issues. Please review and format the code."
+            echo "::set-output name=prettier_message::$prettier_output"
+            # echo "::set-output name=prettier_message::Prettier detected formatting issues. Please review and format the code."
           fi
 
       - name: Comment on PR if Prettier issues
