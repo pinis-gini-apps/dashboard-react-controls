@@ -137,7 +137,7 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: |
-          prettier_output=$(npm run prettier || true)
+          prettier_output=$(npm run prettier 2>&1  || true)
           echo "--------1---------"
           echo "$prettier_output"
           echo "--------2---------"
