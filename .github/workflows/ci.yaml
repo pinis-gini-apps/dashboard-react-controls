@@ -138,7 +138,7 @@ jobs:
         id: prettier
         run: |
           npm run prettier
-          prettier_test=$(npx prettier --check src/lib/components/FormCombobox/FormCombobox.js --log-level debug)
+          prettier_test=$(npm run prettier)
           echo "$prettier_test"
           prettier_output=$(npm run prettier || true)
           echo "$prettier_output"
