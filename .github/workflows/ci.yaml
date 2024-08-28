@@ -137,7 +137,6 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: |
-          npm run prettier
           prettier_test=$(npm run prettier)
           echo "$prettier_test"
           prettier_output=$(npm run prettier || true)
