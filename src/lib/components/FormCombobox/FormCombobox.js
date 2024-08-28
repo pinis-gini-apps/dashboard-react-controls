@@ -82,7 +82,8 @@ const FormCombobox = ({
   const suggestionListRef = useRef()
   useDetectOutsideClick(comboboxRef, () => setShowValidationRules(false))
 
-  const labelClassNames = classnames('form-field__label', disabled && 'form-field__label-disabled')
+  // const labelClassNames =
+  // classnames('form-field__label', disabled && 'form-field__label-disabled')
   const inputClassNames = classnames(
     'form-field-combobox__input',
     selectValue.id.length === 0 && 'form-field-combobox__input_hidden'
@@ -109,9 +110,10 @@ const FormCombobox = ({
   }, [dropdownList, suggestionList, searchIsFocused])
 
   useEffect(() => {
-    setIsInvalid(
-      meta.invalid && (meta.validating || meta.modified || (meta.submitFailed && meta.touched))
-    )
+    // setIsInvalid(
+    //   meta.invalid && (meta.validating || meta.modified ||
+    //   (meta.submitFailed && meta.touched))
+    // )
   }, [meta.invalid, meta.modified, meta.submitFailed, meta.touched, meta.validating])
 
   const handleOutsideClick = useCallback(
@@ -204,12 +206,13 @@ const FormCombobox = ({
   const handleSuggestionListOptionClick = option => {
     const inputValueItems = inputValue.split('/')
     const valueIndex = inputValueItems.length - 1
-    let formattedValue = option.customDelimiter
-      ? inputValueItems[valueIndex].replace(new RegExp(`${option.customDelimiter}.*`), '') +
-        option.id
-      : option.id
+    // let formattedValue = option.customDelimiter
+    // ? inputValueItems[valueIndex].
+    // replace(new RegExp(`${option.customDelimiter}.*`), '') +
+    //   option.id
+    // : option.id
 
-    if (inputValueItems.length <= maxSuggestedMatches - 1) formattedValue += '/'
+    // if (inputValueItems.length <= maxSuggestedMatches - 1) formattedValue += '/'
 
     inputValueItems[valueIndex] = formattedValue
 
@@ -413,7 +416,8 @@ const FormCombobox = ({
                   {!hideSearchInput && (
                     <div className="form-field-combobox__search-wrapper">
                       <input
-                        data-testid={name ? `${name}-form-combobox-search` : 'form-combobox-search'}
+                        // data-testid={name ? `${name}-form-combobox-search`
+                        // : 'form-combobox-search'}
                         className="form-field-combobox__search form-field__control"
                         onChange={suggestionListSearchChange}
                         onFocus={() => setSearchIsFocused(true)}
@@ -447,7 +451,8 @@ const FormCombobox = ({
               {isInvalid && !Array.isArray(meta.error) && (
                 <Tooltip
                   className="form-field__warning"
-                  template={<TextTooltipTemplate text={meta.error?.label ?? invalidText} warning />}
+                  // template={<TextTooltipTemplate text={meta.error?.label
+                  // ?? invalidText} warning />}
                 >
                   <ExclamationMarkIcon />
                 </Tooltip>
