@@ -18,6 +18,6 @@ module.exports = {
   semi: false,
   singleQuote: true,
   trailingComma: 'none',
-  printWidth: 300,
+  printWidth: 150,
   arrowParens: 'avoid'
 }
