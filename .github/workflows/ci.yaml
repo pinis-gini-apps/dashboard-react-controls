@@ -137,10 +137,12 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: |
-          prettier_test=$(npm run prettier)
-          echo "$prettier_test"
           prettier_output=$(npm run prettier || true)
+          echo '---------------------'
+          echo '${{ toJson(prettier_output) }}'
           echo "$prettier_output"
+          echo '----------end-----------'
+          
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
             echo "::set-output name=prettier_status::success"
           else
