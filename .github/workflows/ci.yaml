@@ -91,7 +91,7 @@ jobs:
           node-version: '21.6.2'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run ESLint
         id: eslint
@@ -132,7 +132,7 @@ jobs:
           node-version: '21.6.2'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run Prettier
         id: prettier
