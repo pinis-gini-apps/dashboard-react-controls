@@ -129,7 +129,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.10.0'
+          node-version: '21.6.2'
 
       - name: Install Dependencies
         run: npm install
@@ -138,16 +138,17 @@ jobs:
         id: prettier
         run: |
           prettier_output=$(npm run prettier || true)
-          echo '---------------------'
+          echo "--------1---------"
           echo "$prettier_output"
-          echo '----------end-----------'
-          
+          echo "--------2---------"
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
             echo "::set-output name=prettier_status::success"
           else
+            echo "--------3---------"
+            echo "$prettier_output"
+            echo "--------4---------"
             echo "::set-output name=prettier_status::fail"
-            echo "::set-output name=prettier_message::$prettier_output"
-            # echo "::set-output name=prettier_message::Prettier detected formatting issues. Please review and format the code."
+            echo "::set-output name=prettier_message::Prettier detected formatting issues. Please review and format the code."
           fi
 
       - name: Comment on PR if Prettier issues
