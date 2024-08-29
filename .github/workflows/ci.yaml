@@ -134,6 +134,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Install Prettier 3.2.5
+        run: npm install --save-dev prettier@3.2.5
+
+      - name: Check Prettier Version
+        run: npx prettier -v
+
       - name: Run Prettier
         id: prettier
         run: |
