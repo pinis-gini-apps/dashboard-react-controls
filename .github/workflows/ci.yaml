@@ -129,7 +129,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '21.6.2'
+          node-version: '20.10.0'
 
       - name: Install Dependencies
         run: npm install
@@ -141,6 +141,7 @@ jobs:
           echo "--------1---------"
           echo "$prettier_output"
           echo "--------2---------"
+          prettier -v
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
             echo "::set-output name=prettier_status::success"
           else
