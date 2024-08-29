@@ -141,7 +141,7 @@ jobs:
           echo "--------1---------"
           echo "$prettier_output"
           echo "--------2---------"
-          prettier -v
+          npx prettier -v
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
             echo "::set-output name=prettier_status::success"
           else
