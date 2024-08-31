@@ -144,16 +144,9 @@ jobs:
         id: prettier
         run: |
           prettier_output=$(npm run prettier 2>&1  || true)
-          echo "--------1---------"
-          echo "$prettier_output"
-          echo "--------2---------"
-          npx prettier -v
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
             echo "::set-output name=prettier_status::success"
           else
-            echo "--------3---------"
-            echo "$prettier_output"
-            echo "--------4---------"
             echo "::set-output name=prettier_status::fail"
             echo "::set-output name=prettier_message::Prettier detected formatting issues. Please review and format the code."
           fi
