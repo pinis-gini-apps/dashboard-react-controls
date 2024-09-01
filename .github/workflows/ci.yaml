@@ -179,7 +179,7 @@ jobs:
   check-package-version:
     runs-on: ubuntu-latest
     needs: compile
-#    if: github.event.pull_request.merged == true && github.event.pull_request.base.repo.fork == false
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.repo.fork == false
 
     steps:
       - name: Checkout code
