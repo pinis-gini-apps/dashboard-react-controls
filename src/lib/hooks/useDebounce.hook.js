@@ -14,33 +14,35 @@ illegal under applicable law, and the grant of the foregoing license
 under the Apache 2.0 license is conditioned upon your compliance with
 such restriction.
 */
-import { useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
-export const useDebounce = () => (validate, time) => {
+export const useDebounce = () => {
   const timeout = useRef(null)
   const lastValue = useRef(null)
   const lastResult = useRef(null)
 
-  return function (value) {
-    return new Promise(resolve => {
-      if (timeout.current) {
-        timeout.current()
-      }
-
-      if (value !== lastValue.current) {
-        const timerId = setTimeout(() => {
-          lastValue.current = value
-          lastResult.current = validate(value)
-          resolve(lastResult.current)
-        }, time)
-
-        timeout.current = () => {
-          clearTimeout(timerId)
-          resolve(true)
+  return useCallback((validate, time) => {
+    return value => {
+      return new Promise(resolve => {
+        if (timeout.current) {
+          timeout.current()
         }
-      } else {
-        resolve(lastResult.current)
-      }
-    })
-  }
+
+        if (value !== lastValue.current) {
+          const timerId = setTimeout(() => {
+            lastValue.current = value
+            lastResult.current = validate(value)
+            resolve(lastResult.current)
+          }, time)
+
+          timeout.current = () => {
+            clearTimeout(timerId)
+            resolve(true)
+          }
+        } else {
+          resolve(lastResult.current)
+        }
+      })
+    }
+  }, [])
 }
