@@ -13,7 +13,7 @@ var _edit = require("../../images/edit.svg");
 var _delete = require("../../images/delete.svg");
 var _checkmark = require("../../images/checkmark2.svg");
 var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /*
 Copyright 2019 Iguazio Systems Ltd.
 

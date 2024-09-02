@@ -7,7 +7,7 @@ exports.useHiddenChipsBlock = void 0;
 var _react = require("react");
 var _classnames = _interopRequireDefault(require("classnames"));
 var _common = require("../utils/common.util");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /*
 Copyright 2019 Iguazio Systems Ltd.
 
