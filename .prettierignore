@@ -1,5 +1,2 @@
-dist
-tests
 src/lib/fonts
 src/lib/images
-**/*.spec.js
