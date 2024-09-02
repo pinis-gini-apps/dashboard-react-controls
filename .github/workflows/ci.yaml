@@ -101,7 +101,7 @@ jobs:
           echo "$eslint_output"
           if [[ "$eslint_output" == *"error"* ]]; then
             echo "::set-output name=eslint_status::fail"
-            echo "::set-output name=eslint_message::❌ESLint detected issues in the code. Please review and address the linting errors and warnings."
+            echo "::set-output name=eslint_message::❌ ESLint detected issues in the code. Please review and address the linting errors and warnings."
           else
             echo "::set-output name=eslint_status::success"
           fi
@@ -143,7 +143,7 @@ jobs:
             echo "::set-output name=prettier_status::success"
           else
             echo "::set-output name=prettier_status::fail"
-            echo "::set-output name=prettier_message::⭕️ Prettier detected formatting issues. Please review and format the code."
+            echo "::set-output name=prettier_message::❌ Prettier detected formatting issues. Please review and format the code."
           fi
 
       - name: Comment on PR if Prettier issues
@@ -160,7 +160,6 @@ jobs:
 
   compile:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged != true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
