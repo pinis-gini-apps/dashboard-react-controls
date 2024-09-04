@@ -48,7 +48,7 @@ const Tooltip = ({
   }
 
   const handleMouseLeave = useCallback(
-    (event) => {
+    event => {
       if (
         !tooltipRef.current ||
         hidden ||
@@ -64,7 +64,7 @@ const Tooltip = ({
   )
 
   const handleMouseEnter = useCallback(
-    (event) => {
+    event => {
       if (!show) {
         const [child] = parentRef.current.childNodes
         let show =
@@ -165,6 +165,25 @@ const Tooltip = ({
       window.removeEventListener('resize', clearStyles)
     }
   }, [clearStyles, style])
+
+  useEffect(() => {
+    const handleTooltipVisibilityOnClick = event => {
+      if (
+        parentRef.current &&
+        !parentRef.current.contains(event.target) &&
+        tooltipRef.current &&
+        !tooltipRef.current.contains(event.target)
+      ) {
+        setShow(false)
+      }
+    }
+
+    window.addEventListener('click', handleTooltipVisibilityOnClick)
+
+    return () => {
+      window.removeEventListener('click', handleTooltipVisibilityOnClick)
+    }
+  }, [])
 
   return (
     <>
