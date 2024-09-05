@@ -24,7 +24,7 @@ jest.mock('../../images/dropdown.svg', () => ({
   ReactComponent: 'caret-icon'
 }))
 
-const renderComponent = (props) => render(<Select {...props} />)
+const renderComponent = props => render(<Select {...props} />)
 
 describe('Select component', () => {
   let wrapper

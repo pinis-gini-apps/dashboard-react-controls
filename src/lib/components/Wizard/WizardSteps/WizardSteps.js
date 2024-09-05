@@ -50,7 +50,7 @@ const WizardSteps = ({ activeStepNumber, firstDisabledStepIdx = null, jumpToStep
             icon={<span className="wizard-steps__indicator">{idx + 1}</span>}
             key={id}
             label={label}
-            onClick={(e) => handleJumpToStep(e, idx)}
+            onClick={e => handleJumpToStep(e, idx)}
           />
         )
       })}

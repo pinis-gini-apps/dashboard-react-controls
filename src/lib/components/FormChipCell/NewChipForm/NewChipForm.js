@@ -126,7 +126,7 @@ const NewChipForm = React.forwardRef(
               ? maxWidthInput
               : currentWidthValueInput
 
-        setChipData((prevState) => ({
+        setChipData(prevState => ({
           ...prevState,
           keyFieldWidth,
           valueFieldWidth
@@ -173,7 +173,7 @@ const NewChipForm = React.forwardRef(
     ])
 
     const outsideClick = useCallback(
-      (event) => {
+      event => {
         if (editConfig.chipIndex === chipIndex) {
           const elementPath = event.path ?? event.composedPath?.()
 
@@ -199,7 +199,7 @@ const NewChipForm = React.forwardRef(
     }, [outsideClick, editConfig.isEdit])
 
     const focusChip = useCallback(
-      (event) => {
+      event => {
         if (editConfig.chipIndex === chipIndex && isEditable) {
           if (!event.shiftKey && event.key === TAB && editConfig.isValueFocused) {
             return onChange(event, TAB)
@@ -213,14 +213,14 @@ const NewChipForm = React.forwardRef(
     )
 
     const handleOnFocus = useCallback(
-      (event) => {
+      event => {
         const isKeyFocused = event.target.name === keyName
 
         if (editConfig.chipIndex === chipIndex) {
           if (isKeyFocused) {
             refInputKey.current.selectionStart = refInputKey.current.selectionEnd
 
-            setEditConfig((prevConfig) => ({
+            setEditConfig(prevConfig => ({
               ...prevConfig,
               isKeyFocused: true,
               isValueFocused: false
@@ -228,7 +228,7 @@ const NewChipForm = React.forwardRef(
           } else {
             refInputValue.current.selectionStart = refInputValue.current.selectionEnd
 
-            setEditConfig((prevConfig) => ({
+            setEditConfig(prevConfig => ({
               ...prevConfig,
               isKeyFocused: false,
               isValueFocused: true
@@ -254,12 +254,12 @@ const NewChipForm = React.forwardRef(
     )
 
     const handleOnChange = useCallback(
-      (event) => {
+      event => {
         event.preventDefault()
         if (event.target.name === keyName) {
           const currentWidthKeyInput = getTextWidth(refInputKey.current)
 
-          setChipData((prevState) => ({
+          setChipData(prevState => ({
             ...prevState,
             key: refInputKey.current.value,
             keyFieldWidth:
@@ -274,7 +274,7 @@ const NewChipForm = React.forwardRef(
         } else {
           const currentWidthValueInput = getTextWidth(refInputValue.current)
 
-          setChipData((prevState) => ({
+          setChipData(prevState => ({
             ...prevState,
             value: refInputValue.current.value,
             valueFieldWidth:
@@ -307,16 +307,16 @@ const NewChipForm = React.forwardRef(
 
     useEffect(() => {
       if (meta.error) {
-        setValidationRules((prevState) => {
+        setValidationRules(prevState => {
           return {
             ...prevState,
-            [selectedInput]: prevState[selectedInput]?.map((rule) => {
+            [selectedInput]: prevState[selectedInput]?.map(rule => {
               return {
                 ...rule,
                 isValid: isEmpty(get(meta, ['error', editConfig.chipIndex, selectedInput], []))
                   ? true
                   : !meta.error[editConfig.chipIndex][selectedInput].some(
-                      (err) => err && err.name === rule.name
+                      err => err && err.name === rule.name
                     )
               }
             })
@@ -336,7 +336,7 @@ const NewChipForm = React.forwardRef(
     return (
       <div
         className={labelContainerClassName}
-        onKeyDown={(event) => !chip.disabled && editConfig.isEdit && focusChip(event)}
+        onKeyDown={event => !chip.disabled && editConfig.isEdit && focusChip(event)}
         ref={refInputContainer}
       >
         <NewChipInput
@@ -374,7 +374,7 @@ const NewChipForm = React.forwardRef(
         <button
           disabled={chip.disabled}
           className={closeButtonClass}
-          onClick={(event) => !chip.disabled && handleRemoveChip(event, chipIndex)}
+          onClick={event => !chip.disabled && handleRemoveChip(event, chipIndex)}
         >
           <Close />
         </button>

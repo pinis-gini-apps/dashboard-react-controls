@@ -21,12 +21,12 @@ import { Field, useField } from 'react-final-form'
 const NewChipInput = React.forwardRef(({ name, onChange, onFocus, ...inputProps }, ref) => {
   const { input } = useField(name)
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     input.onChange(event)
     onChange(event)
   }
 
-  const handleInputFocus = (event) => {
+  const handleInputFocus = event => {
     input.onFocus(event)
     onFocus(event)
   }

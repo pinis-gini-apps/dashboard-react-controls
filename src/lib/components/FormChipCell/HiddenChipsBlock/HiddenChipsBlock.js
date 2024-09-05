@@ -42,7 +42,7 @@ const HiddenChipsBlock = React.forwardRef(
       chipOptions.boldValue && 'chip-value_bold'
     )
 
-    const generateChipData = (chip) => {
+    const generateChipData = chip => {
       return chip.isKeyOnly
         ? chip.key
         : `${chip.key}${chip.delimiter ? chip.delimiter : ':'} ${chip.value}`
@@ -57,7 +57,7 @@ const HiddenChipsBlock = React.forwardRef(
     return createPortal(
       <div ref={hiddenChipsPopUpRef} className={hiddenChipsBlockClassNames} onClick={event => event.stopPropagation()}>
         <div className="chip-block-hidden__scrollable-container">
-          {chips?.map((element) => {
+          {chips?.map(element => {
             return (
               <Tooltip
                 key={element.id}

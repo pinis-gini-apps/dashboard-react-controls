@@ -33,7 +33,7 @@ const FormActionButton = React.forwardRef(
           <div className="form-table__row form-table__action-row no-hover">
             <button
               data-testid={id ? id : `${fieldsPath}-add-btn`}
-              onClick={(event) => onClick(event, fields, fieldsPath)}
+              onClick={event => onClick(event, fields, fieldsPath)}
               disabled={disabled}
             >
               <Plus />
