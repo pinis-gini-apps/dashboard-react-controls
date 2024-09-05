@@ -166,25 +166,6 @@ const Tooltip = ({
     }
   }, [clearStyles, style])
 
-  useEffect(() => {
-    const handleTooltipVisibilityOnClick = event => {
-      if (
-        parentRef.current &&
-        !parentRef.current.contains(event.target) &&
-        tooltipRef.current &&
-        !tooltipRef.current.contains(event.target)
-      ) {
-        setShow(false)
-      }
-    }
-
-    window.addEventListener('click', handleTooltipVisibilityOnClick)
-
-    return () => {
-      window.removeEventListener('click', handleTooltipVisibilityOnClick)
-    }
-  }, [])
-
   return (
     <>
       {renderChildAsHtml ? (
@@ -193,12 +174,14 @@ const Tooltip = ({
           ref={parentRef}
           className={tooltipClassNames}
           dangerouslySetInnerHTML={{ __html: children }}
+          onClick={handleMouseLeave}
         />
       ) : (
         <div
           data-testid={id ? `${id}-tooltip-wrapper` : 'tooltip-wrapper'}
           ref={parentRef}
           className={tooltipClassNames}
+          onClick={handleMouseLeave}
         >
           {children}
         </div>
