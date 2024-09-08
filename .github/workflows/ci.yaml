@@ -99,7 +99,7 @@ jobs:
           export NODE_ENV=production
           eslint_output=$(npm run lint 2>&1 || true)
           echo "$eslint_output"
-          if [[ "$eslint_output" == *"error"* ]]; then
+          if echo "$eslint_output" | grep -q '✖ .* errors'; then
             echo "::set-output name=eslint_status::fail"
             echo "::set-output name=eslint_message::❌ **Prettier** detected issues in the code. Please review and address the linting errors and warnings."
           else
