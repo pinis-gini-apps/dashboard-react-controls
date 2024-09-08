@@ -225,14 +225,14 @@ export const useFormTable = (formState, exitEditModeTriggerItem, onExitEditModeC
     }
   }
 
-  const isCurrentRowEditing = (rowPath) => {
+  const isCurrentRowEditing = rowPath => {
     return (
       editingItemRef?.current &&
       `${editingItemRef.current.ui.fieldsPath}[${editingItemRef.current.ui.index}]` === rowPath
     )
   }
 
-  const getTableArrayErrors = (fieldsPath) => {
+  const getTableArrayErrors = fieldsPath => {
     if (formState.submitFailed && formState.invalid) {
       return get(formState, `errors.${fieldsPath}.${ARRAY_ERROR}`, [])
     } else {

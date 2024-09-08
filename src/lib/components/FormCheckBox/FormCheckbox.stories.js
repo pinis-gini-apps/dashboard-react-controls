@@ -30,7 +30,7 @@ const commonArgs = {
   name: 'checkbox'
 }
 
-const Template = (args) => <Form onSubmit={() => null}>{() => <FormCheckBox {...args} />}</Form>
+const Template = args => <Form onSubmit={() => null}>{() => <FormCheckBox {...args} />}</Form>
 
 export const Normal = Template.bind({})
 Normal.args = {

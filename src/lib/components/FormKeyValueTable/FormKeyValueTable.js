@@ -69,7 +69,7 @@ const FormKeyValueTable = ({
     })
   }
 
-  const getKeyTextTemplate = (keyValue) => {
+  const getKeyTextTemplate = keyValue => {
     return <Tooltip template={<TextTooltipTemplate text={keyValue} />}>{keyValue}</Tooltip>
   }
 
@@ -110,7 +110,7 @@ const FormKeyValueTable = ({
                           {
                             name: 'uniqueness',
                             label: 'Name must be unique',
-                            pattern: (newValue) => uniquenessValidator(fields, newValue)
+                            pattern: newValue => uniquenessValidator(fields, newValue)
                           }
                         ]}
                       />
@@ -142,7 +142,7 @@ const FormKeyValueTable = ({
                 <div
                   className={tableRowClassNames}
                   key={index}
-                  onClick={(event) => !disabled && enterEditMode(event, fields, fieldsPath, index)}
+                  onClick={event => !disabled && enterEditMode(event, fields, fieldsPath, index)}
                 >
                   <div className="form-table__cell form-table__cell_1">
                     {getKeyTextTemplate(fields.value[index].data.key)}

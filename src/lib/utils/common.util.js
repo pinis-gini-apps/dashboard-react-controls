@@ -55,8 +55,8 @@ export const openDeleteConfirmPopUp = (header, message, confirmHandler) => {
   })
 }
 
-export const isEveryObjectValueEmpty = (obj) =>
-  Object.values(obj).every((item) => !item || item.length === 0)
+export const isEveryObjectValueEmpty = obj =>
+  Object.values(obj).every(item => !item || item.length === 0)
 
 // Checks, whether two arrays of objects are equal, can omit some keys if their comparison is not necessary
 export const areArraysEqual = (firstArray, secondArray, omitBy = []) => {
@@ -75,7 +75,7 @@ export const areArraysEqual = (firstArray, secondArray, omitBy = []) => {
  * @param {Error} error - The error object.
  * @returns {string} - The detailed error information.
  */
-export const getErrorDetail = (error) => {
+export const getErrorDetail = error => {
   const errorDetail = get(error, 'response.data.detail', null)
 
   if (typeof errorDetail === 'string') {

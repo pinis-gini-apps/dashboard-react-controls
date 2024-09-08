@@ -33,7 +33,7 @@ const commonArgs = {
   ]
 }
 
-const Template = (args) => <Form onSubmit={() => null}>{() => <FormSelect {...args} />}</Form>
+const Template = args => <Form onSubmit={() => null}>{() => <FormSelect {...args} />}</Form>
 
 export const Dense = Template.bind({})
 Dense.args = {

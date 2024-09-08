@@ -48,7 +48,7 @@ const Tooltip = ({
   }
 
   const handleMouseLeave = useCallback(
-    (event) => {
+    event => {
       if (
         !tooltipRef.current ||
         hidden ||
@@ -64,7 +64,7 @@ const Tooltip = ({
   )
 
   const handleMouseEnter = useCallback(
-    (event) => {
+    event => {
       if (!show) {
         const [child] = parentRef.current.childNodes
         let show =
@@ -174,12 +174,14 @@ const Tooltip = ({
           ref={parentRef}
           className={tooltipClassNames}
           dangerouslySetInnerHTML={{ __html: children }}
+          onClick={handleMouseLeave}
         />
       ) : (
         <div
           data-testid={id ? `${id}-tooltip-wrapper` : 'tooltip-wrapper'}
           ref={parentRef}
           className={tooltipClassNames}
+          onClick={handleMouseLeave}
         >
           {children}
         </div>

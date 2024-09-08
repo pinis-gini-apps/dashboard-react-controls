@@ -42,7 +42,7 @@ const FormOnChange = ({ handler, name }) => {
         value: true
       }}
       allowNull
-      render={(props) => <OnChangeState inputValue={props.input.value} handler={handler} />}
+      render={props => <OnChangeState inputValue={props.input.value} handler={handler} />}
     />
   )
 }

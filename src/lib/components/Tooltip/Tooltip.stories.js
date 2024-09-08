@@ -30,7 +30,7 @@ const commonArgs = {
   textShow: true
 }
 
-const Template = (args) => <Tooltip {...args} />
+const Template = args => <Tooltip {...args} />
 
 export const Normal = Template.bind({})
 Normal.args = {

@@ -89,7 +89,7 @@ const FormChipCell = ({
   }, [visibleChipsMaxLength, isEditable, visibleChipsCount, formState.values, name])
 
   const checkChipsList = useCallback(
-    (currentChipsList) => {
+    currentChipsList => {
       if (areArraysEqual(get(initialValues, name), currentChipsList, ['id'])) {
         set(formState.initialValues, name, currentChipsList)
       }
@@ -177,7 +177,7 @@ const FormChipCell = ({
           handleRemoveChip(event, fields, editConfig.chipIndex)
         }
 
-        setEditConfig((prevState) => {
+        setEditConfig(prevState => {
           const lastChipSelected = prevState.chipIndex + 1 > fields.value.length - 1
 
           isChipNotEmpty && lastChipSelected && onExitEditModeCallback && onExitEditModeCallback()
@@ -195,7 +195,7 @@ const FormChipCell = ({
           handleRemoveChip(event, fields, editConfig.chipIndex)
         }
 
-        setEditConfig((prevState) => {
+        setEditConfig(prevState => {
           const firstChipIsSelected = prevState.chipIndex === 0
 
           isChipNotEmpty &&
@@ -274,7 +274,7 @@ const FormChipCell = ({
           isKeyClicked = event.target.name === keyName
         }
 
-        setEditConfig((preState) => ({
+        setEditConfig(preState => ({
           ...preState,
           chipIndex,
           isEdit: true,
@@ -288,7 +288,7 @@ const FormChipCell = ({
     [isEditable, onClick]
   )
 
-  const validateFields = (fieldsArray) => {
+  const validateFields = fieldsArray => {
     if (!fieldsArray) return null
 
     let errorData = []
@@ -300,7 +300,7 @@ const FormChipCell = ({
     }
 
     if (!isEmpty(validationRules)) {
-      errorData = fieldsArray.map((chip) => {
+      errorData = fieldsArray.map(chip => {
         const [keyValidation, valueValidation] = validateChip(chip)
 
         if (keyValidation && valueValidation) return { key: keyValidation, value: valueValidation }
@@ -330,7 +330,7 @@ const FormChipCell = ({
       errorData = validator(fieldsArray)
     }
 
-    if (errorData.every((label) => isNil(label))) {
+    if (errorData.every(label => isNil(label))) {
       return null
     }
 
@@ -340,15 +340,15 @@ const FormChipCell = ({
   const validateChip = ({ key, value, disabled }) => {
     const validateField = (value, field) => {
       const [newRules, isValidField] = checkPatternsValidity(
-        validationRules[field].filter((rule) => rule.pattern),
+        validationRules[field].filter(rule => rule.pattern),
         value
       )
 
       if (isValidField) return null
 
-      const invalidRules = newRules.filter((rule) => !rule.isValid)
+      const invalidRules = newRules.filter(rule => !rule.isValid)
 
-      return invalidRules.map((rule) => ({ name: rule.name, label: rule.label }))
+      return invalidRules.map(rule => ({ name: rule.name, label: rule.label }))
     }
 
     return disabled ? [null, null] : [validateField(key, 'key'), validateField(value, 'value')]

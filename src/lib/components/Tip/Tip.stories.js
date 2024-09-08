@@ -24,12 +24,12 @@ export default {
 }
 
 const commonArgs = {
-  text: 'Tip',
+  text: 'Tip'
 }
 
-const Template = (args) => <Tip {...args} />
+const Template = args => <Tip {...args} />
 
 export const Normal = Template.bind({})
 Normal.args = {
-  ...commonArgs,
+  ...commonArgs
 }
