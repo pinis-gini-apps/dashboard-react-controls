@@ -1,4 +1,4 @@
-name: Basic Manual Workflow
+name: Basic Build Workflow
 
 on:
   workflow_dispatch:
@@ -9,4 +9,4 @@ jobs:
 
     steps:
       - name: Echo a message
-        run: echo "This is a manually triggered workflow!"
+        run: echo "This is a manually triggered workflow build!"
