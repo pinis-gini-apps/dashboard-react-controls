@@ -22,11 +22,6 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+'          # Matches branches like '1.2.3'
       - '[0-9]+.[0-9]+.[0-9]+_.*'      # Matches branches like '1.7.0_cpj_mm'
 
-permissions:
-  pull-requests: write
-  issues: write
-  contents: read
-
 jobs:
   check-copyright:
     name: Check Copyright Existence
