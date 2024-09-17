@@ -39,24 +39,24 @@ export const useChipCell = (isEditMode, visibleChipsMaxLength) => {
   const handleShowElements = useCallback(
     event => {
       if (!isEditMode || (isEditMode && visibleChipsMaxLength)) {
-        if (!hiddenChipsCounterRef.current?.contains(event.target)) {
-          setShowHiddenChips(false)
-        } else {
+        if (hiddenChipsCounterRef.current?.contains(event.target) && !showHiddenChips) {
           setShowHiddenChips(true)
+        } else {
+          setShowHiddenChips(false)
         }
       }
 
-      event && event.stopPropagation()
+      event && hiddenChipsCounterRef.current?.contains(event.target) && event.stopPropagation()
     },
-    [isEditMode, visibleChipsMaxLength]
+    [isEditMode, showHiddenChips, visibleChipsMaxLength]
   )
 
   useEffect(() => {
     if (showHiddenChips) {
-      window.addEventListener('click', handleShowElements)
-
-      return () => window.removeEventListener('click', handleShowElements)
+      window.addEventListener('click', handleShowElements, true)
     }
+
+    return () => window.removeEventListener('click', handleShowElements, true)
   }, [showHiddenChips, handleShowElements])
 
   const handleScroll = useCallback(
