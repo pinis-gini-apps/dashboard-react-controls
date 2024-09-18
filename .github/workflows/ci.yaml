@@ -1,17 +1,17 @@
-# Copyright 2019 Iguazio
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+  # Copyright 2019 Iguazio
+  #
+  # Licensed under the Apache License, Version 2.0 (the "License");
+  # you may not use this file except in compliance with the License.
+  # You may obtain a copy of the License at
+  #
+  #     http://www.apache.org/licenses/LICENSE-2.0
+  #
+  # Unless required by applicable law or agreed to in writing, software
+  # distributed under the License is distributed on an "AS IS" BASIS,
+  # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  # See the License for the specific language governing permissions and
+  # limitations under the License.
+  #
 name: CI
 
 on:
@@ -53,21 +53,162 @@ jobs:
           # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
           # See the License for the specific language governing permissions and
           # limitations under the License.
+
           .js :
           /*
           Copyright 2019 Iguazio Systems Ltd.
+
           Licensed under the Apache License, Version 2.0 (the "License") with
           an addition restriction as set forth herein. You may not use this
           file except in compliance with the License. You may obtain a copy of
           the License at http://www.apache.org/licenses/LICENSE-2.0.
+
           Unless required by applicable law or agreed to in writing, software
           distributed under the License is distributed on an "AS IS" BASIS,
           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
           implied. See the License for the specific language governing
           permissions and limitations under the License.
+
           In addition, you may not use the software for any purposes that are
           illegal under applicable law, and the grant of the foregoing license
           under the Apache 2.0 license is conditioned upon your compliance with
           such restriction.
           */
+
           "
+
+  lint:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged != true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21.6.2'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run ESLint
+        id: eslint
+        run: |
+          export NODE_ENV=production
+          eslint_output=$(npm run lint 2>&1 || true)
+          echo "$eslint_output"
+          if echo "$eslint_output" | grep -q '✖ .* errors'; then
+            echo "::set-output name=eslint_status::fail"
+            echo "::set-output name=eslint_message::❌ **Prettier** detected issues in the code. Please review and address the linting errors and warnings."
+          else
+            echo "::set-output name=eslint_status::success"
+          fi
+
+      - name: Comment on PR if ESLint issues
+        if: steps.eslint.outputs.eslint_status != 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          comment_body=$(echo "${{ steps.eslint.outputs.eslint_message }}" | jq -R .)
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"body\": $comment_body}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+          exit 1
+
+  prettier:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged != true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21.6.2'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Prettier
+        id: prettier
+        run: |
+          prettier_output=$(npm run prettier 2>&1  || true)
+          echo "$prettier_output"
+          if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
+            echo "::set-output name=prettier_status::success"
+          else
+            echo "::set-output name=prettier_status::fail"
+            echo "::set-output name=prettier_message::❌ **Prettier** detected formatting issues. Please review and format the code."
+          fi
+
+      - name: Comment on PR if Prettier issues
+        if: steps.prettier.outputs.prettier_status != 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          comment_body=$(echo "${{ steps.prettier.outputs.prettier_message }}" | jq -R .)
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"body\": $comment_body}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+          exit 1
+
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21.6.2'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run compile
+
+  check-package-version:
+    runs-on: ubuntu-latest
+    needs: compile
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.repo.fork == false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check if branch is dist version
+        id: check_branch
+        run: |
+          echo '${{ toJson(github.head_ref) }}'
+          [[ "${{ github.head_ref }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "Branch does not match the pattern: ^v[0-9]+\.[0-9]+\.[0-9]+$. Skipping job."; 
+            exit 1; }
+
+      - name: get github object
+        run: |
+          echo '${{ toJSON(github.pull_request.merged) }}'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21.6.2'
+
+      - name: Fetch all branches
+        run: git fetch --all
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Compare version with target branch
+        run: |
+          node .github/comparePackageVersions.js "${{ github.event.pull_request.base.ref }}"
