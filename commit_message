@@ -1,6 +1,6 @@
 
 
-Create a new dist version 2.2.11
+Create a new dist version 2.2.20
 
 Collecting:
-- Impl [Projects] move sort to the right (#348)
+- Fix [Artifact] tooltip label hover pop up issue (#368)

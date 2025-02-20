@@ -333,7 +333,15 @@ const validationRules = {
       generateRule.beginEndWith('a-z A-Z 0-9'),
       generateRule.length({ max: 253 }),
       generateRule.required()
-    ]
+    ],
+    labels: {
+      key: [
+        generateRule.notContainCharacters(':'),
+        generateRule.beginEndWith('a-z A-Z 0-9'),
+        generateRule.length({ max: 255 })
+      ],
+      value: [generateRule.beginEndWith('a-z A-Z 0-9'), generateRule.length({ max: 255 })]
+    }
   },
   feature: {
     sets: {
@@ -403,7 +411,7 @@ const validationRules = {
       generateRule.validCharacters('a-z A-Z 0-9 - _ .'),
       generateRule.beginEndWith('a-z A-Z 0-9'),
       generateRule.noConsecutiveCharacters('.., .–, –.'),
-      generateRule.maxLengthBetweenDelimiters(/[\.\-\_]/, 63, 'periods'),
+      generateRule.maxLengthBetweenDelimiters(/[.\-_]/, 63, 'periods'),
       generateRule.length({ max: 253 }),
       generateRule.required()
     ],
