@@ -22,7 +22,12 @@ import { DANGER_BUTTON, PRIMARY_BUTTON, TERTIARY_BUTTON } from '../constants'
 export const openPopUp = (element, props) => {
   return create(element)(props)
 }
-console.log('test')
+console.log('test"")
+//
+
+//
+
+//
 export const openConfirmPopUp = (message, confirmHandler) => {
   return openPopUp(ConfirmDialog, {
     cancelButton: {
