@@ -75,7 +75,6 @@ const FormChipCellView = /*#__PURE__*/_react.default.forwardRef((_ref, _ref2) =>
   const chipClassNames = (0, _classnames.default)('chip', 'chip__content', isEditable && 'data-ellipsis', shortChips && 'chip_short', chips.hiddenChips && 'chip_hidden', chipOptions.density && "chip-density_".concat(chipOptions.density), chipOptions.borderRadius && "chip-border_".concat(chipOptions.borderRadius), chipOptions.background && "chip-background_".concat(chipOptions.background), chipOptions.borderColor && "chip-border_".concat(chipOptions.borderColor), chipOptions.font && "chip-font_".concat(chipOptions.font), isEditable && 'editable', (showChips || isEditable) && 'chip_visible');
   return /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactFinalFormArrays.FieldArray, {
     name: name,
-    initialValue: formState.initialValues[name],
     validate: validateFields,
     children: _ref3 => {
       let {
@@ -101,11 +100,17 @@ const FormChipCellView = /*#__PURE__*/_react.default.forwardRef((_ref, _ref2) =>
                 template: /*#__PURE__*/(0, _jsxRuntime.jsx)(_TextTooltipTemplate.default, {
                   text: chipData.tooltip || /*#__PURE__*/(0, _jsxRuntime.jsxs)("span", {
                     className: "chip__content",
-                    children: [chipData.key, !chipData.isKeyOnly && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
+                    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+                      className: "chip__content-item",
+                      children: chipData.key
+                    }), !chipData.isKeyOnly && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
                       children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
                         className: "chip__delimiter",
                         children: chipData.delimiter ? chipData.delimiter : ':'
-                      }), chipData.value]
+                      }), /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+                        className: "chip__content-item",
+                        children: chipData.value
+                      })]
                     })]
                   })
                 }),
