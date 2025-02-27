@@ -139,17 +139,18 @@ jobs:
       - name: Run Prettier
         id: prettier
         run: |
-          prettier_output=$(npm run prettier 2>&1  || true)
+          prettier_output=$(npm run prettier 2>&1 || true)
           echo "$prettier_output"
           if [[ "$prettier_output" == *"All matched files use Prettier code style!"* ]]; then
-            echo "::set-output name=prettier_status::success"
+            echo "prettier_status=success" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=prettier_status::fail"
-            echo "::set-output name=prettier_message::❌ **Prettier** detected formatting issues. Please review and format the code."
+            echo "prettier_status=fail" >> $GITHUB_OUTPUT
+            echo "prettier_message=❌ **Prettier** detected formatting issues. Please review and format the code." >> $GITHUB_OUTPUT
           fi
 
       - name: Comment on PR if Prettier issues
-        if: steps.prettier.outputs.prettier_status != 'success'
+        if: ${{ steps.prettier.outputs.prettier_status != 'success' }}
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
